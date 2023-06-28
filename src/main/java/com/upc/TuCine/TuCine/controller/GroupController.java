@@ -62,4 +62,5 @@ public class GroupController {
         List<PersonDto> personDtoList = groupService.getPersonsByGroupId(id);
         return new ResponseEntity<>(personDtoList, HttpStatus.OK);
     }
+
 }
