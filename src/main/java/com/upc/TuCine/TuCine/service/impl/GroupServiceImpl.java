@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
+import com.upc.TuCine.TuCine.dto.FilmDto;
 import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.save.Group.GroupSaveDto;
@@ -69,6 +70,14 @@ public class GroupServiceImpl implements GroupService {
         Group group = DtoToEntity(groupDto);
         return EntityToDto(groupRepository.save(group));
 
+    }
+
+    @Override
+    public GroupDto getGroupById(Integer id) {
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("No se encontró el grupo con el ID: " + id));
+
+        return EntityToDto(group);
     }
 
 

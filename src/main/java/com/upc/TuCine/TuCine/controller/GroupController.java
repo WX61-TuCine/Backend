@@ -40,6 +40,21 @@ public class GroupController {
         return ResponseEntity.ok(groups);
     }
 
+    @Transactional(readOnly = true)
+    @GetMapping("/groups/{id}")
+    @Operation(summary = "Obtener un grupo por su ID")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Se obtuvo el grupo"
+    )
+    public ResponseEntity<GroupDto> getGroupById(@PathVariable Integer id) {
+        GroupDto group = groupService.getGroupById(id);
+        if(group == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(group, HttpStatus.OK);
+    }
+
     @Transactional
     @PostMapping("/groups")
     @Operation(summary = "Crear un grupo")
