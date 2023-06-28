@@ -38,7 +38,7 @@ public class ActorController {
             @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de actores",
             content = {
                     @Content(mediaType = "application/json",
-                    schema= @Schema(implementation = ActorDto.class,type = "List"))
+                    schema= @Schema(implementation = ActorDto.class,type = "array"))
             })
     })
     public ResponseEntity<List<ActorDto>> getAllActors() {

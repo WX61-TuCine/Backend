@@ -60,6 +60,24 @@ public class ContentRatingController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/contentRatings/{id}")
+    @Operation(summary = "Obtener una clasificación de contenido por su id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se obtuvo la clasificación de contenido",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ContentRatingDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró la clasificación de contenido",
+                    content = @Content
+            )
+    })
     public ResponseEntity<ContentRatingDto> getContentRatingById(@PathVariable("id") Integer id) {
         return new ResponseEntity<ContentRatingDto>(contentRatingService.getContentRatingById(id), HttpStatus.OK);
     }
@@ -68,6 +86,24 @@ public class ContentRatingController {
     //Method: POST
     @Transactional
     @PostMapping("/contentRatings")
+    @Operation(summary = "Crear una clasificación de contenido")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Se creó la clasificación de contenido",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ContentRatingDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "No se pudo crear la clasificación de contenido",
+                    content = @Content
+            )
+    })
     public ResponseEntity<ContentRatingDto> createContentRating(@RequestBody ContentRatingSaveDto contentRatingSaveDto){
         return new ResponseEntity<ContentRatingDto>(contentRatingService.createContentRating(contentRatingSaveDto), HttpStatus.CREATED);
     }

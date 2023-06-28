@@ -101,7 +101,7 @@ public class BusinessController {
             @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de showtimes",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema= @Schema(implementation = ShowtimeDto.class, type = "List"))
+                                    schema= @Schema(implementation = ShowtimeDto.class, type = "array"))
                     }),
             @ApiResponse(responseCode = "404", description = "No se encontro el business",
                     content = @Content)

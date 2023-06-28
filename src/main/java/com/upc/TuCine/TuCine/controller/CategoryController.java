@@ -42,7 +42,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de categorias",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema= @Schema(implementation = CategoryDto.class,type = "List"))
+                                    schema= @Schema(implementation = CategoryDto.class,type = "array"))
                     }),
     })
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
