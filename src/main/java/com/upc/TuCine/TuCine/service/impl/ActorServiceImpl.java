@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.ActorDto;
+import com.upc.TuCine.TuCine.dto.save.ActorSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Actor;
 import com.upc.TuCine.TuCine.repository.ActorRepository;
@@ -34,7 +35,9 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public ActorDto createActor(ActorDto actorDto) {
+    public ActorDto createActor(ActorSaveDto actorSaveDto) {
+        ActorDto actorDto = modelMapper.map(actorSaveDto, ActorDto.class);
+
         validateActor(actorDto);
         existActorByFirstName(actorDto.getFirstName(),actorDto.getLastName());
         Actor actor = DtoToEntity(actorDto);

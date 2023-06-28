@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.ActorDto;
+import com.upc.TuCine.TuCine.dto.save.ActorSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,8 @@ public class ActorController {
     //Method: POST
     @Transactional
     @PostMapping("/actors")
-    public ResponseEntity<ActorDto> createActor(@RequestBody ActorDto actorDto){
-        return new ResponseEntity<ActorDto>(actorService.createActor(actorDto), HttpStatus.CREATED);
+    public ResponseEntity<ActorDto> createActor(@RequestBody ActorSaveDto actorSaveDto){
+        return new ResponseEntity<ActorDto>(actorService.createActor(actorSaveDto), HttpStatus.CREATED);
     }
-
 
 }
