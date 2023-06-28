@@ -1,8 +1,15 @@
 package com.upc.TuCine.TuCine.controller;
 
+import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
+import com.upc.TuCine.TuCine.dto.PromotionDto;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.save.Showtime.ShowtimeSaveDto;
 import com.upc.TuCine.TuCine.service.ShowtimeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +36,26 @@ public class ShowtimeController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/showtimes")
+    @Operation(summary = "Obtener todos los showtimes")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se obtuvo la lista de showtimes",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = ShowtimeDto.class,type = "array")
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontraron los showtimes",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<List<ShowtimeDto>> getAllShowtimes() {
         return new ResponseEntity<>(showtimeService.getAllShowtimes(), HttpStatus.OK);
     }
@@ -37,6 +64,18 @@ public class ShowtimeController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/showtimes/{id}")
+    @Operation(summary = "Obtener un showtime mediante su id")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Se obtuvo el showtime",
+                            content = {
+                                    @Content(mediaType = "application/json",
+                                            schema= @Schema(implementation = ShowtimeDto.class))
+                            }),
+                    @ApiResponse(responseCode = "404", description = "No se encontró el showtime",
+                            content = @Content)
+            }
+    )
     public ResponseEntity<ShowtimeDto> getShowtimeById(@PathVariable(value = "id") Integer id) {
         ShowtimeDto showtimeDto = showtimeService.getShowtimeById(id);
         if (showtimeDto == null) {
@@ -50,6 +89,26 @@ public class ShowtimeController {
     //Method: POST
     @Transactional
     @PostMapping("/showtimes")
+    @Operation(summary = "Crear un nuevo showtime")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Se creó el showtime",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = ShowtimeDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "No se pudo crear el showtime",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeSaveDto showtimeSaveDto) {
         ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeSaveDto);
         return new ResponseEntity<>(createdShowtimeDto, HttpStatus.CREATED);
@@ -60,6 +119,7 @@ public class ShowtimeController {
     //Method: UPDATE
     @Transactional
     @PutMapping("/showtimes/{id}")
+    @Operation(summary = "Actualizar un showtime")
     public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeDto showtimeDto) {
         ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeDto);
         if (updatedShowtimeDto == null) {
@@ -72,6 +132,7 @@ public class ShowtimeController {
     //Method: DELETE
     @Transactional
     @DeleteMapping("/showtimes/{id}")
+    @Operation(summary = "Borrar un showtime mediante su id")
     public ResponseEntity<Void> deleteShowtime(@PathVariable(value = "id") Integer id) {
         ShowtimeDto deletedShowtimeDto = showtimeService.deleteShowtime(id);
         if (deletedShowtimeDto == null) {
