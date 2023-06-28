@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.BusinessTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,21 +49,9 @@ public class BusinessTypeController {
     //Method: POST
     @Transactional
     @PostMapping("/businessTypes")
-    public ResponseEntity<BusinessTypeDto> createBusinessType(@RequestBody BusinessTypeDto businessTypeDto){
-        validateBusinessType(businessTypeDto);
-        existsBusinessTypeByName(businessTypeDto.getName());
-        return new ResponseEntity<>(businessTypeService.createBusinessType(businessTypeDto), HttpStatus.CREATED);
+    public ResponseEntity<BusinessTypeDto> createBusinessType(@RequestBody BusinessTypeSaveDto businessTypeSaveDto){
+        return new ResponseEntity<>(businessTypeService.createBusinessType(businessTypeSaveDto), HttpStatus.CREATED);
     }
 
-    void validateBusinessType(BusinessTypeDto businessType) {
-        if (businessType.getName() == null || businessType.getName().isEmpty()) {
-            throw new ValidationException("El nombre del tipo de negocio no puede estar vacío");
-        }
-    }
 
-    void existsBusinessTypeByName(String name) {
-        if (businessTypeService.existsBusinessTypeByName(name)) {
-            throw new ValidationException("Ya hay un tipo de negocio que existe con este nombre");
-        }
-    }
 }

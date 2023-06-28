@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.service;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeSaveDto;
 
 import java.util.List;
 
@@ -10,8 +11,6 @@ public interface BusinessTypeService {
 
     BusinessTypeDto getBusinessTypeById(Integer id);
 
-    BusinessTypeDto createBusinessType(BusinessTypeDto businessTypeDto);
-
-    boolean existsBusinessTypeByName(String name);
+    BusinessTypeDto createBusinessType(BusinessTypeSaveDto businessTypeSaveDto);
 
 }

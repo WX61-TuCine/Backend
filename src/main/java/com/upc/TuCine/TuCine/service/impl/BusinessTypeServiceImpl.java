@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeSaveDto;
+import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.BusinessType;
 import com.upc.TuCine.TuCine.repository.BusinessTypeRepository;
 import com.upc.TuCine.TuCine.service.BusinessTypeService;
@@ -47,12 +49,25 @@ public class BusinessTypeServiceImpl implements BusinessTypeService {
     }
 
     @Override
-    public BusinessTypeDto createBusinessType(BusinessTypeDto businessTypeDto) {
+    public BusinessTypeDto createBusinessType(BusinessTypeSaveDto businessTypeSaveDto) {
+
+        BusinessTypeDto businessTypeDto = modelMapper.map(businessTypeSaveDto, BusinessTypeDto.class);
+
+        validateBusinessType(businessTypeDto);
+        existsBusinessTypeByName(businessTypeDto.getName());
+
         BusinessType businessType = DtoToEntity(businessTypeDto);
         return EntityToDto(businessTypeRepository.save(businessType));
     }
-    @Override
-    public boolean existsBusinessTypeByName(String name) {
-        return businessTypeRepository.existsBusinessTypeByName(name);
+    void validateBusinessType(BusinessTypeDto businessType) {
+        if (businessType.getName() == null || businessType.getName().isEmpty()) {
+            throw new ValidationException("El nombre del tipo de negocio no puede estar vacío");
+        }
+    }
+
+    void existsBusinessTypeByName(String name) {
+        if (businessTypeRepository.existsBusinessTypeByName(name)) {
+            throw new ValidationException("Ya hay un tipo de negocio que existe con este nombre");
+        }
     }
 }
