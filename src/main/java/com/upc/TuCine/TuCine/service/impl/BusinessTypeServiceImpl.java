@@ -1,7 +1,7 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
-import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeSaveDto;
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeDtoSave;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.BusinessType;
 import com.upc.TuCine.TuCine.repository.BusinessTypeRepository;
@@ -49,9 +49,9 @@ public class BusinessTypeServiceImpl implements BusinessTypeService {
     }
 
     @Override
-    public BusinessTypeDto createBusinessType(BusinessTypeSaveDto businessTypeSaveDto) {
+    public BusinessTypeDto createBusinessType(BusinessTypeDtoSave businessTypeDtoSave) {
 
-        BusinessTypeDto businessTypeDto = modelMapper.map(businessTypeSaveDto, BusinessTypeDto.class);
+        BusinessTypeDto businessTypeDto = modelMapper.map(businessTypeDtoSave, BusinessTypeDto.class);
 
         validateBusinessType(businessTypeDto);
         existsBusinessTypeByName(businessTypeDto.getName());
