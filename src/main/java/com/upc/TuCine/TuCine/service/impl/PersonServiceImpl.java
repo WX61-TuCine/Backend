@@ -1,8 +1,10 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.CategoryDto;
+import com.upc.TuCine.TuCine.dto.OwnerDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
+import com.upc.TuCine.TuCine.dto.save.Person.PersonSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.*;
 import com.upc.TuCine.TuCine.repository.GenderRepository;
@@ -60,9 +62,13 @@ public class PersonServiceImpl implements PersonService {
             return typeUserDto;
     }
     @Override
-    public PersonDto createPerson(PersonDto personDto) {
+    public PersonDto createPerson(PersonSaveDto personSaveDto) {
+
+        PersonDto personDto = modelMapper.map(personSaveDto, PersonDto.class);
 
         validatePerson(personDto);
+        existsByPersonEmail(personDto.getEmail());
+        existsPersonByNumberDni(personDto.getNumberDni());
 
         Gender gender = genderRepository.findById(personDto.getGender().getId()).orElse(null);
         personDto.setGender(gender);
@@ -99,12 +105,10 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
-    @Override
     public boolean existsByPersonEmail(String email) {
         return personRepository.existsPersonByEmail(email);
     }
 
-    @Override
     public boolean existsPersonByNumberDni(String numberDni) {
         return personRepository.existsPersonByNumberDni(numberDni);
     }

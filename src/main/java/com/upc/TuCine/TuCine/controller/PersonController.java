@@ -2,6 +2,7 @@ package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
+import com.upc.TuCine.TuCine.dto.save.Person.PersonSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,52 +49,10 @@ public class PersonController {
     //Method: POST
     @Transactional
     @PostMapping("/persons")
-    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto){
-        validatePerson(personDto);
-        existsByPersonEmail(personDto.getEmail());
-        existByPersonDni(personDto.getNumberDni());
-        return new ResponseEntity<>(personService.createPerson(personDto), HttpStatus.CREATED);
+    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonSaveDto personSaveDto){
+
+        return new ResponseEntity<>(personService.createPerson(personSaveDto), HttpStatus.CREATED);
     }
 
-    void validatePerson(PersonDto person) {
-        if (person.getFirstName() == null || person.getFirstName().isEmpty()) {
-            throw new ValidationException("El nombre de la persona es obligatorio");
-        }
-        if(person.getLastName()==null || person.getLastName().isEmpty()){
-            throw new ValidationException("El apellido de la persona es obligatorio");
-        }
-        if(person.getNumberDni()==null || person.getNumberDni().isEmpty()){
-            throw new ValidationException("El DNI de la persona es obligatorio");
-        }
-        if(person.getEmail()==null || person.getEmail().isEmpty()){
-            throw new ValidationException("El email de la persona es obligatorio");
-        }
-        if(person.getPassword()==null || person.getPassword().isEmpty()){
-            throw new ValidationException("La contraseña de la persona es obligatorio");
-        }
-        if(person.getBirthdate()==null){
-            throw new ValidationException("La fecha de nacimiento de la persona es obligatorio");
-        }
-        if(person.getGender()==null ){
-            throw new ValidationException("El género de la persona es obligatorio");
-        }
-        if(person.getPhone()==null || person.getPhone().isEmpty()){
-            throw new ValidationException("El teléfono de la persona es obligatorio");
-        }
-        if(person.getTypeUser()==null){
-            throw new ValidationException("El tipo de usuario de la persona es obligatorio");
-        }
-    }
 
-    void existsByPersonEmail(String email) {
-        if (personService.existsByPersonEmail(email)) {
-            throw new ValidationException("Ya existe una persona registrada con ese email");
-        }
-    }
-
-    void existByPersonDni(String dni) {
-        if (personService.existsPersonByNumberDni(dni)) {
-            throw new ValidationException("Ya existe una persona registrada con ese DNI");
-        }
-    }
 }
