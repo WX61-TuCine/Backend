@@ -55,6 +55,7 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public BusinessDto createBusiness(BusinessSaveDto businessSaveDto) {
 
+
         BusinessDto businessDto = modelMapper.map(businessSaveDto, BusinessDto.class);
 
         validateBusiness(businessDto);
@@ -62,12 +63,14 @@ public class BusinessServiceImpl implements BusinessService {
         existsByBusinessRuc(businessDto.getRuc());
         existsByBusinessEmail(businessDto.getEmail());
 
-
+/*        businessDto.setOwner(ownerRepository.findById(businessSaveDto.getOwner().getId()).orElse(null));
+        businessDto.setBusinessType(businessTypeRepository.findById(businessSaveDto.getBusinessType().getId()).orElse(null));*/
         Owner owner = ownerRepository.findById(businessDto.getOwner().getId()).orElse(null);
         businessDto.setOwner(owner);
 
         BusinessType businessType = businessTypeRepository.findById(businessDto.getBusinessType().getId()).orElse(null);
         businessDto.setBusinessType(businessType);
+
 
         Business business = DtoToEntity(businessDto);
         return EntityToDto(businessRepository.save(business));

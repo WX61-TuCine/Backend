@@ -76,5 +76,4 @@ public class BusinessController {
     public ResponseEntity<BusinessDto> createBusiness(@RequestBody BusinessSaveDto businessSaveDto){
         return new ResponseEntity<>(businessService.createBusiness(businessSaveDto), HttpStatus.CREATED);
     }
-
 }

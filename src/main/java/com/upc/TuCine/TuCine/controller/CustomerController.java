@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.CustomerDto;
+import com.upc.TuCine.TuCine.dto.save.CustomerSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class CustomerController {
     //Method: POST
     @Transactional
     @PostMapping("/customers")
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto){
-        return new ResponseEntity<CustomerDto>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerSaveDto customerSaveDto){
+        return new ResponseEntity<CustomerDto>(customerService.createCustomer(customerSaveDto), HttpStatus.CREATED);
     }
 
 

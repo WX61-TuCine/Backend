@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.CustomerDto;
+import com.upc.TuCine.TuCine.dto.save.CustomerSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Category;
 import com.upc.TuCine.TuCine.model.Customer;
@@ -48,7 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto createCustomer(CustomerDto customerDto) {
+    public CustomerDto createCustomer(CustomerSaveDto customerSaveDto) {
+
+        CustomerDto customerDto = modelMapper.map(customerSaveDto, CustomerDto.class);
 
         validateCustomer(customerDto);
 
