@@ -10,6 +10,10 @@ import com.upc.TuCine.TuCine.service.TypeUserService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +42,25 @@ public class TypeUserController {
     @Transactional(readOnly = true)
     @GetMapping("/typeUsers")
     @Operation(summary = "Obtener todos los TypeUsers", description = "Obtiene la lista de todos los tipos de usuarios disponibles")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se obtuvo la lista de tipos de usuarios",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TypeUserDto.class,type = "array")
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontraron los tipos de usuario",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<List<TypeUserDto>> getAllTypeUsers() {
         return new ResponseEntity<List<TypeUserDto>>(typeUserService.getAllTypeUsers(), HttpStatus.OK);
     }
@@ -47,6 +70,25 @@ public class TypeUserController {
     @Transactional
     @PostMapping("/typeUsers")
     @Operation(summary = "Crear un nuevo TypeUser", description = "Crea un nuevo tipo de usuario con la información proporcionada")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Se creó el tipo de usuario",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TypeUserDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "No se pudo crear el tipo de usuario",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<TypeUserDto> createTypeUser(@RequestBody TypeUserSaveDto typeUserSaveDto){
         TypeUserDto createdTypeUserDto= typeUserService.createTypeUser(typeUserSaveDto);
         return new ResponseEntity<>(createdTypeUserDto, HttpStatus.CREATED);
