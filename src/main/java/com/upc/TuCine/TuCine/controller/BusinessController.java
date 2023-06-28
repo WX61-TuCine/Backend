@@ -3,6 +3,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.BusinessDto;
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
+import com.upc.TuCine.TuCine.dto.save.BusinessSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,6 @@ public class BusinessController {
         }
         return new ResponseEntity<>(businessTypeDto, HttpStatus.OK);
     }
-
     //Get all Showtimes by Business Id
     //URL: http://localhost:8080/api/TuCine/v1/businesses/{id}/showtimes
     //Method: GET
@@ -73,10 +73,8 @@ public class BusinessController {
     //Method: POST
     @Transactional
     @PostMapping("/businesses")
-    public ResponseEntity<BusinessDto> createBusiness(@RequestBody BusinessDto businessDto){
-        return new ResponseEntity<>(businessService.createBusiness(businessDto), HttpStatus.CREATED);
+    public ResponseEntity<BusinessDto> createBusiness(@RequestBody BusinessSaveDto businessSaveDto){
+        return new ResponseEntity<>(businessService.createBusiness(businessSaveDto), HttpStatus.CREATED);
     }
-
-
 
 }
