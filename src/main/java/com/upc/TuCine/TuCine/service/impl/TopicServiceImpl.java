@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.TopicDto;
 import com.upc.TuCine.TuCine.dto.save.Topic.TopicSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.model.Film;
 import com.upc.TuCine.TuCine.model.Group;
 import com.upc.TuCine.TuCine.model.Topic;
 import com.upc.TuCine.TuCine.repository.TopicRepository;

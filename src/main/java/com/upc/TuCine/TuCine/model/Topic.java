@@ -26,7 +26,7 @@ public class Topic {
     private String name;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "topics")
     private List<Group> groups;
 
 
