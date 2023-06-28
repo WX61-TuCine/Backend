@@ -1,6 +1,9 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.PromotionDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Business;
 import com.upc.TuCine.TuCine.model.Person;
@@ -48,7 +51,9 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public PromotionDto createPromotion(PromotionDto promotionDto) {
+    public PromotionDto createPromotion(PromotionSaveDto promotionSaveDto) {
+
+        PromotionDto promotionDto = modelMapper.map(promotionSaveDto, PromotionDto.class);
 
         validatePromotion(promotionDto);
         existsPromotionByTitle(promotionDto.getTitle());
@@ -66,7 +71,10 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public PromotionDto updatePromotion(Integer id, PromotionDto promotionDto) {
+    public PromotionDto updatePromotion(Integer id, PromotionUpdateDto promotionUpdateDto) {
+
+        PromotionDto promotionDto = modelMapper.map(promotionUpdateDto, PromotionDto.class);
+
         Promotion promotionToUpdate = promotionRepository.findById(id).orElse(null);
         if (promotionToUpdate == null) {
             return null; // O lanzar una excepción si lo prefieres

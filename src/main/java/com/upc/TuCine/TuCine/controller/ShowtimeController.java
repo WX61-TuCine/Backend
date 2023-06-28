@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
+import com.upc.TuCine.TuCine.dto.save.Showtime.ShowtimeSaveDto;
 import com.upc.TuCine.TuCine.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,8 +48,8 @@ public class ShowtimeController {
     //Method: POST
     @Transactional
     @PostMapping("/showtimes")
-    public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
-        ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeDto);
+    public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeSaveDto showtimeSaveDto) {
+        ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeSaveDto);
         return new ResponseEntity<>(createdShowtimeDto, HttpStatus.CREATED);
     }
 

@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.PromotionDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
 import com.upc.TuCine.TuCine.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,16 +35,16 @@ public class PromotionController {
     //Method: POST
     @Transactional
     @PostMapping("/promotions")
-    public ResponseEntity<PromotionDto> createPromotion(@RequestBody PromotionDto promotionDto){
-        return new ResponseEntity<>(promotionService.createPromotion(promotionDto), HttpStatus.CREATED);
+    public ResponseEntity<PromotionDto> createPromotion(@RequestBody PromotionSaveDto promotionSaveDto){
+        return new ResponseEntity<>(promotionService.createPromotion(promotionSaveDto), HttpStatus.CREATED);
     }
 
     //URL: http://localhost:8080/api/TuCine/v1/promotions/{id}
     //Method: PUT
     @Transactional
     @PutMapping("/promotions/{id}")
-    public ResponseEntity<PromotionDto> updatePromotion(@PathVariable Integer id, @RequestBody PromotionDto promotionDto) {
-        PromotionDto updatedPromotionDto = promotionService.updatePromotion(id, promotionDto);
+    public ResponseEntity<PromotionDto> updatePromotion(@PathVariable Integer id, @RequestBody PromotionUpdateDto promotionUpdateDto) {
+        PromotionDto updatedPromotionDto = promotionService.updatePromotion(id, promotionUpdateDto);
         if (updatedPromotionDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
