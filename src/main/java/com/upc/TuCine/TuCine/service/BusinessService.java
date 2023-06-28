@@ -3,8 +3,7 @@ package com.upc.TuCine.TuCine.service;
 import com.upc.TuCine.TuCine.dto.BusinessDto;
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
-import com.upc.TuCine.TuCine.dto.save.BusinessSaveDto;
-import com.upc.TuCine.TuCine.model.Business;
+import com.upc.TuCine.TuCine.dto.save.Business.BusinessSaveDto;
 
 import java.util.List;
 

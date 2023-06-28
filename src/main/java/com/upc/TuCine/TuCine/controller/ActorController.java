@@ -1,8 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.ActorDto;
-import com.upc.TuCine.TuCine.dto.save.ActorSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.dto.save.Actor.ActorSaveDto;
 import com.upc.TuCine.TuCine.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

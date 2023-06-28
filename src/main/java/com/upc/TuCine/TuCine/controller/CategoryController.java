@@ -2,7 +2,7 @@ package com.upc.TuCine.TuCine.controller;
 
 
 import com.upc.TuCine.TuCine.dto.CategoryDto;
-import com.upc.TuCine.TuCine.dto.save.CategorySaveDto;
+import com.upc.TuCine.TuCine.dto.save.Category.CategorySaveDto;
 import com.upc.TuCine.TuCine.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

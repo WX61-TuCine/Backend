@@ -3,7 +3,7 @@ package com.upc.TuCine.TuCine.service.impl;
 import com.upc.TuCine.TuCine.dto.BusinessDto;
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
-import com.upc.TuCine.TuCine.dto.save.BusinessSaveDto;
+import com.upc.TuCine.TuCine.dto.save.Business.BusinessSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.*;
 import com.upc.TuCine.TuCine.repository.BusinessRepository;

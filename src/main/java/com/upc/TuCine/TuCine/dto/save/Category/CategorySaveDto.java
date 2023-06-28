@@ -1,4 +1,4 @@
-package com.upc.TuCine.TuCine.dto.save;
+package com.upc.TuCine.TuCine.dto.save.Category;
 
 import lombok.Data;
 
