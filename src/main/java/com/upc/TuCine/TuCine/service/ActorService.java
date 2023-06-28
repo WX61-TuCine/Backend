@@ -1,8 +1,7 @@
 package com.upc.TuCine.TuCine.service;
 
 import com.upc.TuCine.TuCine.dto.ActorDto;
-import com.upc.TuCine.TuCine.dto.save.ActorSaveDto;
-import com.upc.TuCine.TuCine.model.Actor;
+import com.upc.TuCine.TuCine.dto.save.Actor.ActorSaveDto;
 
 import java.util.List;
 
