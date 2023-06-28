@@ -42,10 +42,8 @@ public class CategoryController {
             @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de categorias",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema= @Schema(implementation = BusinessTypeDto.class))
+                                    schema= @Schema(implementation = CategoryDto.class,type = "List"))
                     }),
-            @ApiResponse(responseCode = "400", description = "No se pudo obtener la lista",
-                    content = @Content)
     })
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
         return new ResponseEntity<List<CategoryDto>>(categoryService.getAllCategories(), HttpStatus.OK);

@@ -39,7 +39,7 @@ public class BusinessTypeController {
             @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de todos los tipos de negocio",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema= @Schema(implementation = BusinessTypeDto.class))
+                                    schema= @Schema(implementation = BusinessTypeDto.class, type = "List"))
                     }),
     })
     public ResponseEntity<List<BusinessTypeDto>> getAllBusinessTypes() {

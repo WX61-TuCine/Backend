@@ -1,10 +1,16 @@
 package com.upc.TuCine.TuCine.controller;
 
 
+import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.ContentRatingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +38,20 @@ public class ContentRatingController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/contentRatings")
+    @Operation(summary = "Obtener todos los clasificaciones de contenido que existen para las películas")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se obtuvo la lista de clasificaciones de contenido",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ContentRatingDto.class, type = "array")
+                            )
+                    }
+            ),
+
+    })
     public ResponseEntity<List<ContentRatingDto>> getAllContentRatings() {
         return new ResponseEntity<>(contentRatingService.getAllContentRatings(), HttpStatus.OK);
     }
