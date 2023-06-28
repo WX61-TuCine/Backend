@@ -1,8 +1,14 @@
 package com.upc.TuCine.TuCine.controller;
 
+import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.save.Ticket.TicketSaveDto;
 import com.upc.TuCine.TuCine.service.TicketService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +35,24 @@ public class TicketController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/tickets")
+    @Operation(summary = "Obtener toda la lista de tickets")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se obtuvo la lista de tickets",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = TicketDto.class,type = "array")
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontraron los tickets",
+                    content = @Content
+            )
+    })
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         return new ResponseEntity<>(ticketService.getAllTickets(), HttpStatus.OK);
     }
@@ -37,6 +61,26 @@ public class TicketController {
     //Method: POST
     @Transactional
     @PostMapping("/tickets")
+    @Operation(summary = "Crear un nuevo ticket")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Se creó el ticket",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TicketDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "No se pudo crear el ticket",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<TicketDto> createTicket(@RequestBody TicketSaveDto ticketSaveDto){
         TicketDto createdTicketDto= ticketService.createTicket(ticketSaveDto);
         return new ResponseEntity<>(createdTicketDto, HttpStatus.CREATED);
@@ -46,6 +90,7 @@ public class TicketController {
     //Method: PUT
     @Transactional
     @PutMapping("/tickets/{id}")
+    @Operation(summary = "Actualizar ticket")
     public ResponseEntity<TicketDto> updateTicket(@PathVariable Integer id, @RequestBody TicketDto ticketDto){
         TicketDto updatedTicketDto = ticketService.updateTicket(id, ticketDto);
         if (updatedTicketDto == null) {
@@ -58,6 +103,7 @@ public class TicketController {
     //Method: DELETE
     @Transactional
     @DeleteMapping("/tickets/{id}")
+    @Operation(summary = "Borrar ticket mediante su id")
     public ResponseEntity<TicketDto> deleteTicket(@PathVariable Integer id){
         TicketDto deletedTicketDto = ticketService.deleteTicket(id);
         if (deletedTicketDto == null) {
