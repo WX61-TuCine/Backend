@@ -1,10 +1,17 @@
 package com.upc.TuCine.TuCine.controller;
 
+import com.upc.TuCine.TuCine.dto.ContentRatingDto;
+import com.upc.TuCine.TuCine.dto.OwnerDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
 import com.upc.TuCine.TuCine.dto.save.Person.PersonSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.PersonService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +38,24 @@ public class PersonController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/persons")
+    @Operation(summary = "Obtener la lista de todas las personas")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se obtuvieron todas las personas",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = PersonDto.class,type = "array")
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontraron las personas",
+                    content = @Content
+            )
+    })
     public ResponseEntity<List<PersonDto>> getAllPersons() {
         return new ResponseEntity<>(personService.getAllPersons(), HttpStatus.OK);
     }
@@ -39,6 +64,26 @@ public class PersonController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/persons/{id}/typeUser")
+    @Operation(summary = "Obtener el tipo de usuario que es la persona mediante su id")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se obtuvo el typeUser de la persona",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TypeUserDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró el tipo de usuario de la persona",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<TypeUserDto> getTypeUserByPersonId(@PathVariable("id") Integer id) {
         TypeUserDto typeUserDto= personService.getTypeUserByPersonId(id);
         if (typeUserDto == null) {
@@ -51,6 +96,26 @@ public class PersonController {
     //Method: POST
     @Transactional
     @PostMapping("/persons")
+    @Operation(summary = "Crear una nueva persona")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Se creó la persona",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = PersonDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "No se pudo crear la persona",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<PersonDto> createPerson(@RequestBody PersonSaveDto personSaveDto){
 
         return new ResponseEntity<>(personService.createPerson(personSaveDto), HttpStatus.CREATED);
