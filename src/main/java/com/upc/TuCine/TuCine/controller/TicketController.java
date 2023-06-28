@@ -3,6 +3,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.save.Ticket.TicketSaveDto;
 import com.upc.TuCine.TuCine.service.TicketService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Ticket", description = "API de Tickets")
 @RequestMapping("/api/TuCine/v1")
 public class TicketController {
 

@@ -4,6 +4,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.save.Category.CategorySaveDto;
 import com.upc.TuCine.TuCine.service.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Category", description = "API de Categorias")
 @RequestMapping("/api/TuCine/v1")
 
 public class CategoryController {
