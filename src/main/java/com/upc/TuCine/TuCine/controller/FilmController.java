@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.*;
 import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.FilmService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
+@Tag(name = "Film", description = "API de Film")
 @RequestMapping("/api/TuCine/v1")
 public class FilmController {
 

@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.GenderDto;
 import com.upc.TuCine.TuCine.dto.save.Gender.GenderSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.GenderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Genrers",description = "API de Genrers")
 @RequestMapping ("/api/TuCine/v1")
 public class GenderController {
     @Autowired

@@ -3,6 +3,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.CustomerDto;
 import com.upc.TuCine.TuCine.dto.save.Customer.CustomerSaveDto;
 import com.upc.TuCine.TuCine.service.CustomerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Customer", description = "API de Customers")
 @RequestMapping("/api/TuCine/v1")
 public class CustomerController {
     @Autowired

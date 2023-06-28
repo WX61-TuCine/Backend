@@ -5,6 +5,7 @@ import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.save.Business.BusinessSaveDto;
 import com.upc.TuCine.TuCine.service.BusinessService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Business", description = "API de Businesses")
 @RequestMapping("/api/TuCine/v1")
 public class BusinessController {
 

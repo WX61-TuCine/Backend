@@ -3,6 +3,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.ActorDto;
 import com.upc.TuCine.TuCine.dto.save.Actor.ActorSaveDto;
 import com.upc.TuCine.TuCine.service.ActorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Actor", description = "API de Actores")
 @RequestMapping ("/api/TuCine/v1")
 public class ActorController {
 

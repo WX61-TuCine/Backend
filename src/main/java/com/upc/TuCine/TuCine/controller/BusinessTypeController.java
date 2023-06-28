@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.BusinessTypeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "BusinessType", description = "API de Tipos de Negocio")
 @RequestMapping("/api/TuCine/v1")
 public class BusinessTypeController {
 

@@ -5,6 +5,7 @@ import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.ContentRatingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "ContentRating", description = "API de ContentRating")
 @RequestMapping("/api/TuCine/v1")
 
 public class ContentRatingController {

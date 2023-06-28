@@ -3,6 +3,7 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.save.Showtime.ShowtimeSaveDto;
 import com.upc.TuCine.TuCine.service.ShowtimeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@Tag(name = "Showtime", description = "API de Showtimes")
 @RequestMapping("/api/TuCine/v1")
 public class ShowtimeController {
 
