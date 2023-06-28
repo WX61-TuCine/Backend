@@ -57,6 +57,8 @@ public class CustomerServiceImpl implements CustomerService {
         Person person = personRepository.findById(customerDto.getPerson().getId()).orElse(null);
         customerDto.setPerson(person);
 
+        existsCustomerById(customerDto.getId());
+
         Customer customer = DtoToEntity(customerDto);
         return EntityToDto(customerRepository.save(customer));
     }
@@ -64,6 +66,12 @@ public class CustomerServiceImpl implements CustomerService {
     private void validateCustomer(CustomerDto customer) {
         if (customer.getPerson() == null) {
             throw new ValidationException("La persona es obligatoria");
+        }
+    }
+
+    private void existsCustomerById(Integer id) {
+        if (customerRepository.existsById(id)) {
+            throw new ValidationException("El cliente ya existe");
         }
     }
 }

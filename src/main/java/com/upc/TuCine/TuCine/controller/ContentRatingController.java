@@ -2,6 +2,7 @@ package com.upc.TuCine.TuCine.controller;
 
 
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
+import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.ContentRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class ContentRatingController {
     //Method: POST
     @Transactional
     @PostMapping("/contentRatings")
-    public ResponseEntity<ContentRatingDto> createContentRating(@RequestBody ContentRatingDto contentRatingDto){
-        return new ResponseEntity<ContentRatingDto>(contentRatingService.createContentRating(contentRatingDto), HttpStatus.CREATED);
+    public ResponseEntity<ContentRatingDto> createContentRating(@RequestBody ContentRatingSaveDto contentRatingSaveDto){
+        return new ResponseEntity<ContentRatingDto>(contentRatingService.createContentRating(contentRatingSaveDto), HttpStatus.CREATED);
     }
     
 
