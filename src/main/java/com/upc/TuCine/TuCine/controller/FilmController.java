@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.*;
+import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.FilmService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -49,8 +50,8 @@ public class FilmController {
     //Method: POST
     @Transactional
     @PostMapping("/films")
-    public ResponseEntity<FilmDto> createFilm(@RequestBody FilmDto filmDto){
-        FilmDto createdFilmDto= filmService.createFilm(filmDto);
+    public ResponseEntity<FilmDto> createFilm(@RequestBody FilmSaveDto filmSaveDto){
+        FilmDto createdFilmDto= filmService.createFilm(filmSaveDto);
         return new ResponseEntity<>(createdFilmDto, HttpStatus.CREATED);
     }
 
