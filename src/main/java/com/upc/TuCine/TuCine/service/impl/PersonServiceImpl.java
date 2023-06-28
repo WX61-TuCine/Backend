@@ -1,13 +1,11 @@
 package com.upc.TuCine.TuCine.service.impl;
 
-import com.upc.TuCine.TuCine.dto.CategoryDto;
-import com.upc.TuCine.TuCine.dto.OwnerDto;
-import com.upc.TuCine.TuCine.dto.PersonDto;
-import com.upc.TuCine.TuCine.dto.TypeUserDto;
+import com.upc.TuCine.TuCine.dto.*;
 import com.upc.TuCine.TuCine.dto.save.Person.PersonSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.*;
 import com.upc.TuCine.TuCine.repository.GenderRepository;
+import com.upc.TuCine.TuCine.repository.GroupRepository;
 import com.upc.TuCine.TuCine.repository.PersonRepository;
 import com.upc.TuCine.TuCine.repository.TypeUserRepository;
 import com.upc.TuCine.TuCine.service.PersonService;
@@ -27,6 +25,8 @@ public class PersonServiceImpl implements PersonService {
     private GenderRepository genderRepository;
     @Autowired
     private TypeUserRepository typeUserRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -78,6 +78,18 @@ public class PersonServiceImpl implements PersonService {
 
         Person person = DtoToEntity(personDto);
         return EntityToDto(personRepository.save(person));
+    }
+
+    @Override
+    public List<GroupDto> getAllGroupsByPersonId(Integer id) {
+        Person person = personRepository.findById(id).orElse(null);
+        if (person == null) {
+            return null;
+        }
+        List<GroupDto> groups = groupRepository.findAllByPerson_id(person.getId()).stream()
+                .map(group -> modelMapper.map(group, GroupDto.class))
+                .collect(Collectors.toList())  ;
+        return groups;
     }
 
     private void validatePerson(PersonDto personDto){

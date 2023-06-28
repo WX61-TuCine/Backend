@@ -1,5 +1,6 @@
 package com.upc.TuCine.TuCine.service;
 
+import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
 import com.upc.TuCine.TuCine.dto.save.Person.PersonSaveDto;
@@ -12,4 +13,6 @@ public interface PersonService {
     TypeUserDto getTypeUserByPersonId(Integer id);
 
     PersonDto createPerson(PersonSaveDto personSaveDto);
+
+    List<GroupDto> getAllGroupsByPersonId(Integer id);
 }

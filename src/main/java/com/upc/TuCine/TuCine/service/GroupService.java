@@ -17,4 +17,5 @@ public interface GroupService {
     void addTopicToGroup(Integer groupId, Integer topicId);
 
     PersonDto getPersonByGroupId(Integer id);
+
 }

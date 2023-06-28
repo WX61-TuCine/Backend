@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.save.Group.GroupSaveDto;
 import com.upc.TuCine.TuCine.service.GroupService;
+import com.upc.TuCine.TuCine.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,11 +23,15 @@ import java.util.List;
 public class GroupController {
 
     private final GroupService groupService;
+    private final PersonService personService;
 
     @Autowired
-    public GroupController(GroupService groupService) {
+    public GroupController(GroupService groupService,
+                           PersonService personService) {
         this.groupService = groupService;
+        this.personService = personService;
     }
+
 
     @Transactional(readOnly = true)
     @GetMapping("/groups")
@@ -91,5 +96,19 @@ public class GroupController {
     public ResponseEntity<String > addTopicToGroup(@PathVariable("groupId") Integer groupId, @PathVariable("topicId") Integer topicId) {
         groupService.addTopicToGroup(groupId, topicId);
         return ResponseEntity.ok("Se agregó el tema al grupo" );
+    }
+
+    @GetMapping("/persons/{personId}/groups")
+    @Operation(summary = "Obtener todos los grupos de una persona")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Se obtuvo la lista de grupos de la persona"
+    )
+    public ResponseEntity<List<GroupDto>> getAllGroupsByPersonId(@PathVariable("personId") Integer personId) {
+        List<GroupDto> groupsDtoList = personService.getAllGroupsByPersonId(personId);
+        if (groupsDtoList == null) {
+            return ResponseEntity.notFound().build(); // Manejar casos en los que no se encuentre el film
+        }
+        return new ResponseEntity<>(groupsDtoList, HttpStatus.OK);
     }
 }
