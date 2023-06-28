@@ -1,9 +1,16 @@
 package com.upc.TuCine.TuCine.controller;
 
+import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.PromotionDto;
+import com.upc.TuCine.TuCine.dto.TypeUserDto;
 import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
 import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
 import com.upc.TuCine.TuCine.service.PromotionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +36,26 @@ public class PromotionController {
     //Method: GET
     @Transactional(readOnly = true)
     @GetMapping("/promotions")
+    @Operation(summary = "Obtener todas las promociones")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se obtuvo la lista de promociones",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = PromotionDto.class,type = "array")
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontraron las promociones",
+                            content = @Content
+                    )
+            }
+    )
     public ResponseEntity<List<PromotionDto>> getAllPromotions() {
         return new ResponseEntity<List<PromotionDto>>(promotionService.getAllPromotions(), HttpStatus.OK);
     }
@@ -37,6 +64,24 @@ public class PromotionController {
     //Method: POST
     @Transactional
     @PostMapping("/promotions")
+    @Operation(summary = "Crear una nueva promoción")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Se creó la promoción",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = PromotionDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "No se pudo crear la promoción",
+                    content = @Content
+            )
+    })
     public ResponseEntity<PromotionDto> createPromotion(@RequestBody PromotionSaveDto promotionSaveDto){
         return new ResponseEntity<>(promotionService.createPromotion(promotionSaveDto), HttpStatus.CREATED);
     }
@@ -44,6 +89,7 @@ public class PromotionController {
     //URL: http://localhost:8080/api/TuCine/v1/promotions/{id}
     //Method: PUT
     @Transactional
+    @Operation(summary = "Actualizar una promoción")
     @PutMapping("/promotions/{id}")
     public ResponseEntity<PromotionDto> updatePromotion(@PathVariable Integer id, @RequestBody PromotionUpdateDto promotionUpdateDto) {
         PromotionDto updatedPromotionDto = promotionService.updatePromotion(id, promotionUpdateDto);
@@ -58,6 +104,7 @@ public class PromotionController {
     //Method: DELETE
     @Transactional
     @DeleteMapping("/promotions/{id}")
+    @Operation(summary = "Borrar una promoción mediante su id")
     public ResponseEntity<PromotionDto> deletePromotion(@PathVariable Integer id) {
         PromotionDto deletedPromotionDto = promotionService.deletePromotion(id);
         if (deletedPromotionDto == null) {
