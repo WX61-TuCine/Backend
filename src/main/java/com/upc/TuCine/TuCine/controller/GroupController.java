@@ -21,9 +21,9 @@ import java.util.List;
 @RequestMapping("/api/TuCine/v1")
 public class GroupController {
 
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
 
+    @Autowired
     public GroupController(GroupService groupService) {
         this.groupService = groupService;
     }
@@ -36,7 +36,8 @@ public class GroupController {
             description = "Se obtuvo la lista de grupos"
     )
     public ResponseEntity<List<GroupDto>> getAllGroups() {
-        return new ResponseEntity<>(groupService.getAllGroups(), HttpStatus.OK);
+        List<GroupDto> groups = groupService.getAllGroups();
+        return ResponseEntity.ok(groups);
     }
 
     @Transactional
@@ -47,20 +48,33 @@ public class GroupController {
             description = "Se creó el grupo"
     )
     public ResponseEntity<GroupDto> createGroup(@RequestBody GroupSaveDto groupSaveDto) {
-        GroupDto createdGroupDto = groupService.createGroup(groupSaveDto);
-        return new ResponseEntity<>(createdGroupDto, HttpStatus.CREATED);
+        GroupDto createdGroup = groupService.createGroup(groupSaveDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdGroup);
     }
 
     @Transactional(readOnly = true)
-    @GetMapping("/groups/{id}/persons")
-    @Operation(summary = "Obtener las personas por ID de grupo")
+    @GetMapping("/groups/{id}/person")
+    @Operation(summary = "Obtener la persona creadora de un grupo")
     @ApiResponse(
             responseCode = "200",
-            description = "Se obtuvieron las personas del grupo"
+            description = "Se obtuvo la persona creadora del grupo"
     )
-    public ResponseEntity<List<PersonDto>> getPersonsByGroupId(@PathVariable("id") Integer id) {
-        List<PersonDto> personDtoList = groupService.getPersonsByGroupId(id);
-        return new ResponseEntity<>(personDtoList, HttpStatus.OK);
+    public ResponseEntity<PersonDto> getPersonByGroupId(@PathVariable Integer id) {
+        PersonDto person = groupService.getPersonByGroupId(id);
+        if(person == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
+    @PostMapping("/groups/{groupId}/topics/{topicId}")
+    @Operation(summary = "Agregar un tema a un grupo")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Se agregó el tema al grupo"
+    )
+    public ResponseEntity<String > addTopicToGroup(@PathVariable("groupId") Integer groupId, @PathVariable("topicId") Integer topicId) {
+        groupService.addTopicToGroup(groupId, topicId);
+        return ResponseEntity.ok("Se agregó el tema al grupo" );
+    }
 }

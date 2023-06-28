@@ -12,6 +12,7 @@ public interface GroupService {
 
     GroupDto createGroup(GroupSaveDto groupSaveDto);
 
-    List<PersonDto> getPersonsByGroupId(Integer id);
+    void addTopicToGroup(Integer groupId, Integer topicId);
 
+    PersonDto getPersonByGroupId(Integer id);
 }

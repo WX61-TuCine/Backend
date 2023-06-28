@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.dto;
 
 import com.upc.TuCine.TuCine.model.Person;
+import com.upc.TuCine.TuCine.model.Topic;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +12,6 @@ public class GroupDto {
     private String name;
     private String ubication;
     private String description;
-    private List<Person> persons;
+    private Person person;
+    private List<Topic> topics;
 }

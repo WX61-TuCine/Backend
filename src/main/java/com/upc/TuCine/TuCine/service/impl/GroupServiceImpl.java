@@ -1,12 +1,15 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.PersonDto;
 import com.upc.TuCine.TuCine.dto.save.Group.GroupSaveDto;
+import com.upc.TuCine.TuCine.exception.ResourceNotFoundException;
 import com.upc.TuCine.TuCine.exception.ValidationException;
-import com.upc.TuCine.TuCine.model.Group;
+import com.upc.TuCine.TuCine.model.*;
 import com.upc.TuCine.TuCine.repository.GroupRepository;
 import com.upc.TuCine.TuCine.repository.PersonRepository;
+import com.upc.TuCine.TuCine.repository.TopicRepository;
 import com.upc.TuCine.TuCine.service.GroupService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private TopicRepository topicRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -55,19 +61,33 @@ public class GroupServiceImpl implements GroupService {
         groupValidate(groupDto);
         existsGroupByName(groupDto.getName());
 
+        Person person = personRepository.findById(groupDto.getPerson().getId())
+                .orElseThrow(() -> new ValidationException("No se encontró la persona con el ID: " + groupDto.getPerson().getId()));
+
+        groupDto.setPerson(person);
+
         Group group = DtoToEntity(groupDto);
         return EntityToDto(groupRepository.save(group));
 
     }
 
+
     @Override
-    public List<PersonDto> getPersonsByGroupId(Integer id) {
+    public PersonDto getPersonByGroupId(Integer id) {
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("No se encontró el grupo con el ID: " + id));
 
-        return group.getPersons().stream()
-                .map(person -> modelMapper.map(person, PersonDto.class))
-                .collect(Collectors.toList());
+        Person person = group.getPerson();
+        return modelMapper.map(person, PersonDto.class);
+    }
+
+    @Override
+    public void addTopicToGroup(Integer idGroup, Integer idTopic){
+        Group group = groupRepository.findById(idGroup).orElseThrow(() -> new ResourceNotFoundException("No se encuentra el grupo con id: " + idGroup));
+        Topic topic = topicRepository.findById(idTopic).orElseThrow(() -> new ResourceNotFoundException("No se encuentra el tema con id: " + idTopic));
+
+        group.getTopics().add(topic);
+        groupRepository.save(group);
     }
 
 
@@ -80,6 +100,9 @@ public class GroupServiceImpl implements GroupService {
         }
         if(group.getUbication()==null || group.getUbication().isEmpty()){
             throw new ValidationException("La ubicacion es obligatoria");
+        }
+        if(group.getPerson()==null){
+            throw new ValidationException("La persona creadora del grupo es obligatoria");
         }
     }
 

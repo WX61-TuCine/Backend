@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,8 +32,13 @@ public class Group {
     @Column(name = "description",length = 200,nullable = false)
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "person_id", nullable = false, foreignKey = @ForeignKey(name = "FK_GROUP_PERSON"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Person person;
+
     @JsonIgnore
     @ManyToMany
-    private List<Person> persons;
+    private List<Topic> topics;
 
 }
