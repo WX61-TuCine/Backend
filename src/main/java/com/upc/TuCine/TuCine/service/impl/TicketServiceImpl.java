@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.TicketDto;
+import com.upc.TuCine.TuCine.dto.save.Ticket.TicketSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Customer;
 import com.upc.TuCine.TuCine.model.Promotion;
@@ -52,7 +54,9 @@ public class TicketServiceImpl implements TicketService {
                 .collect(Collectors.toList());
     }
     @Override
-    public TicketDto createTicket(TicketDto ticketDto) {
+    public TicketDto createTicket(TicketSaveDto ticketSaveDto) {
+
+        TicketDto ticketDto = modelMapper.map(ticketSaveDto, TicketDto.class);
 
         validateTicket(ticketDto);
         existsCustomerById(ticketDto.getCustomer().getId());

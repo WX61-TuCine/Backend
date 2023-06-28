@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.TicketDto;
+import com.upc.TuCine.TuCine.dto.save.Ticket.TicketSaveDto;
 import com.upc.TuCine.TuCine.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class TicketController {
     //Method: POST
     @Transactional
     @PostMapping("/tickets")
-    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto){
-        TicketDto createdTicketDto= ticketService.createTicket(ticketDto);
+    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketSaveDto ticketSaveDto){
+        TicketDto createdTicketDto= ticketService.createTicket(ticketSaveDto);
         return new ResponseEntity<>(createdTicketDto, HttpStatus.CREATED);
     }
 

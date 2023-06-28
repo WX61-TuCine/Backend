@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
+import com.upc.TuCine.TuCine.dto.save.TypeUser.TypeUserSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Ticket;
 import com.upc.TuCine.TuCine.model.TypeUser;
@@ -42,7 +44,10 @@ public class TypeUserServiceImpl implements TypeUserService {
     }
 
     @Override
-    public TypeUserDto createTypeUser(TypeUserDto typeUserDto) {
+    public TypeUserDto createTypeUser(TypeUserSaveDto typeUserSaveDto) {
+
+        TypeUserDto typeUserDto = modelMapper.map(typeUserSaveDto, TypeUserDto.class);
+
         validateTypeUser(typeUserDto);
         existsTypeUserByName(typeUserDto.getName());
         TypeUser typeUser = DtoToEntity(typeUserDto);

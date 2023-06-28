@@ -2,6 +2,7 @@ package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
+import com.upc.TuCine.TuCine.dto.save.TypeUser.TypeUserSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.TypeUser;
 import com.upc.TuCine.TuCine.repository.TypeUserRepository;
@@ -44,8 +45,8 @@ public class TypeUserController {
     @Transactional
     @PostMapping("/typeUsers")
     @Operation(summary = "Crear un nuevo TypeUser", description = "Crea un nuevo tipo de usuario con la información proporcionada")
-    public ResponseEntity<TypeUserDto> createTypeUser(@RequestBody TypeUserDto typeUser){
-        TypeUserDto createdTypeUserDto= typeUserService.createTypeUser(typeUser);
+    public ResponseEntity<TypeUserDto> createTypeUser(@RequestBody TypeUserSaveDto typeUserSaveDto){
+        TypeUserDto createdTypeUserDto= typeUserService.createTypeUser(typeUserSaveDto);
         return new ResponseEntity<>(createdTypeUserDto, HttpStatus.CREATED);
     }
 
