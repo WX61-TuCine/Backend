@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.GenderDto;
 import com.upc.TuCine.TuCine.dto.OwnerDto;
+import com.upc.TuCine.TuCine.dto.save.Owner.OwnerSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.BusinessType;
 import com.upc.TuCine.TuCine.model.Gender;
@@ -49,7 +51,9 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public OwnerDto createOwner(OwnerDto ownerDto) {
+    public OwnerDto createOwner(OwnerSaveDto ownerSaveDto) {
+
+        OwnerDto ownerDto = modelMapper.map(ownerSaveDto, OwnerDto.class);
 
         validateOwner(ownerDto);
         existsPersonById(ownerDto.getPerson().getId());

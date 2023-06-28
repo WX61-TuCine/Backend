@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.OwnerDto;
+import com.upc.TuCine.TuCine.dto.save.Owner.OwnerSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class OwnerController {
     //Method: POST
     @Transactional
     @PostMapping("/owners")
-    public ResponseEntity<OwnerDto> createOwner(@RequestBody OwnerDto ownerDto){
-        return new ResponseEntity<OwnerDto>(ownerService.createOwner(ownerDto), HttpStatus.CREATED);
+    public ResponseEntity<OwnerDto> createOwner(@RequestBody OwnerSaveDto ownerSaveDto){
+        return new ResponseEntity<OwnerDto>(ownerService.createOwner(ownerSaveDto), HttpStatus.CREATED);
     }
 
 

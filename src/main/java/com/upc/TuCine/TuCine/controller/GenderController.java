@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.GenderDto;
+import com.upc.TuCine.TuCine.dto.save.Gender.GenderSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.GenderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class GenderController {
     //Method: POST
     @Transactional
     @PostMapping("/genders")
-    public ResponseEntity<GenderDto> createGender(@RequestBody GenderDto genderDto){
-        return new ResponseEntity<GenderDto>(genderService.createGender(genderDto), HttpStatus.CREATED);
+    public ResponseEntity<GenderDto> createGender(@RequestBody GenderSaveDto genderSaveDto){
+        return new ResponseEntity<GenderDto>(genderService.createGender(genderSaveDto), HttpStatus.CREATED);
     }
 }

@@ -1,6 +1,8 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.FilmDto;
 import com.upc.TuCine.TuCine.dto.GenderDto;
+import com.upc.TuCine.TuCine.dto.save.Gender.GenderSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Gender;
 import com.upc.TuCine.TuCine.repository.GenderRepository;
@@ -41,7 +43,10 @@ public class GenderServiceImpl implements GenderService {
                 .collect(Collectors.toList());
     }
     @Override
-    public GenderDto createGender(GenderDto genderDto) {
+    public GenderDto createGender(GenderSaveDto genderSaveDto) {
+
+        GenderDto genderDto = modelMapper.map(genderSaveDto, GenderDto.class);
+
         genderValidate(genderDto);
         existsGenderByName(genderDto.getName());
 
