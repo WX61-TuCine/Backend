@@ -1,9 +1,11 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.ActorDto;
 import com.upc.TuCine.TuCine.dto.GroupDto;
 import com.upc.TuCine.TuCine.dto.TopicDto;
 import com.upc.TuCine.TuCine.dto.save.Topic.TopicSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.model.Actor;
 import com.upc.TuCine.TuCine.model.Film;
 import com.upc.TuCine.TuCine.model.Group;
 import com.upc.TuCine.TuCine.model.Topic;
@@ -56,6 +58,15 @@ public class TopicServiceImpl implements TopicService {
 
         Topic topic = DtoToEntity(topicDto);
         return EntityToDto(topicRepository.save(topic));
+    }
+
+    @Override
+    public TopicDto updateTopic(Integer id, TopicSaveDto topicSaveDto) {
+        TopicDto topicDto = modelMapper.map(topicSaveDto, TopicDto.class);
+        Topic topic = DtoToEntity(topicDto);
+        Topic topicUpdate = topicRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el tema"));
+        topicUpdate.setName(topic.getName());
+        return EntityToDto(topicRepository.save(topicUpdate));
     }
 
     private void topicValidate(TopicDto topicDto) {

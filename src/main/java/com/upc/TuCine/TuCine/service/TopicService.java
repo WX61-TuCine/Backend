@@ -10,4 +10,6 @@ public interface TopicService {
     List<TopicDto> getAllTopics();
 
     TopicDto createTopic(TopicSaveDto topicSaveDto);
+
+    TopicDto updateTopic(Integer id, TopicSaveDto topicSaveDto);
 }

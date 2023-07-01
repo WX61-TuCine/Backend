@@ -81,5 +81,30 @@ public class TopicController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTopic);
     }
 
+    @Transactional
+    @PutMapping("/topics/{id}")
+    @Operation(summary = "Actualizar un topic")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se actualizó el topic",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = TopicDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró el topic",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<TopicDto> updateTopic(@PathVariable Integer id, @RequestBody TopicSaveDto topicSaveDto) {
+        TopicDto updatedTopic = topicService.updateTopic(id, topicSaveDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTopic);
+    }
+
 }
 
