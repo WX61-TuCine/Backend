@@ -82,7 +82,6 @@ public class FilmServiceImpl implements FilmService {
         }
         FilmDto filmDto = modelMapper.map(filmSaveDto, FilmDto.class);
         validateFilm(filmDto);
-        existsFilmByTitle(filmDto.getTitle());
 
         ContentRating contentRating = contentRatingRepository.findById(filmDto.getContentRating().getId()).orElse(null);
         filmDto.setContentRating(contentRating);
