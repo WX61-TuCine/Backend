@@ -66,6 +66,13 @@ public class ActorServiceImpl implements ActorService {
         return EntityToDto(actorRepository.save(actorUpdate));
     }
 
+    @Override
+    public String deleteActor(Integer id) {
+        Actor actor = actorRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el actor"));
+        actorRepository.delete(actor);
+        return "El actor con nombre " + actor.getFirstName() + " " + actor.getLastName() + " ha sido eliminado";
+    }
+
 
     private void validateActor(ActorDto actor) {
         if (actor.getFirstName() == null || actor.getFirstName().isEmpty()) {

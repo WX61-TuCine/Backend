@@ -83,4 +83,22 @@ public class ActorController {
         return new ResponseEntity<>(actorService.updateActor(id, actorSaveDto), HttpStatus.OK);
     }
 
+    @Transactional
+    @DeleteMapping("/actors/{id}")
+    @Operation(summary = "Eliminar un actor")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se eliminó el actor",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = ActorDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "El actor no se pudo eliminar",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content)
+    })
+    public ResponseEntity<String> deleteActor(@PathVariable Integer id){
+        return new ResponseEntity<>(actorService.deleteActor(id), HttpStatus.OK);
+    }
+
 }

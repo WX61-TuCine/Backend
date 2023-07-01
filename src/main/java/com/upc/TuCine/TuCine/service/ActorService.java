@@ -12,4 +12,6 @@ public interface ActorService {
 
     ActorDto updateActor(Integer id,ActorSaveDto actorSaveDto);
 
+    String deleteActor(Integer id);
+
 }
