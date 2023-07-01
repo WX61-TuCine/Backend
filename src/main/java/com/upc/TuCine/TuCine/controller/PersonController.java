@@ -105,7 +105,7 @@ public class PersonController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            schema = @Schema(implementation = PersonDto.class)
+                                            schema = @Schema(implementation = PersonSaveDto.class)
                                     )
                             }
                     ),
@@ -117,7 +117,6 @@ public class PersonController {
             }
     )
     public ResponseEntity<PersonDto> createPerson(@RequestBody PersonSaveDto personSaveDto){
-
         return new ResponseEntity<>(personService.createPerson(personSaveDto), HttpStatus.CREATED);
     }
 
