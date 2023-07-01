@@ -75,6 +75,32 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public FilmDto updateFilm(Integer id, FilmSaveDto filmSaveDto) {
+        Film film = filmRepository.findById(id).orElse(null);
+        if (film == null) {
+            return null;
+        }
+        FilmDto filmDto = modelMapper.map(filmSaveDto, FilmDto.class);
+        validateFilm(filmDto);
+        existsFilmByTitle(filmDto.getTitle());
+
+        ContentRating contentRating = contentRatingRepository.findById(filmDto.getContentRating().getId()).orElse(null);
+        filmDto.setContentRating(contentRating);
+
+        film = DtoToEntity(filmDto);
+        film.setId(id);
+        return EntityToDto(filmRepository.save(film));
+
+    }
+
+    @Override
+    public String deleteFilm(Integer id) {
+        Film film = filmRepository.findById(id).orElseThrow( () -> new ValidationException("No existe la película"));
+        filmRepository.delete(film);
+        return "La película con título " + film.getTitle() + " ha sido eliminada";
+    }
+
+    @Override
     public ContentRatingDto getContentRatingByFilmId(Integer id) {
         Film film = filmRepository.findById(id).orElse(null);
         if (film == null) {

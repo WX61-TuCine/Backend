@@ -14,6 +14,9 @@ public interface FilmService {
 
     FilmDto createFilm(FilmSaveDto filmSaveDto);
 
+    FilmDto updateFilm(Integer id, FilmSaveDto filmSaveDto);
+
+    String deleteFilm(Integer id);
 
     ContentRatingDto getContentRatingByFilmId(Integer id);
 

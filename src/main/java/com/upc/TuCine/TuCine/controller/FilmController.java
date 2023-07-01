@@ -112,6 +112,57 @@ public class FilmController {
         return new ResponseEntity<>(createdFilmDto, HttpStatus.CREATED);
     }
 
+    @Transactional
+    @PutMapping("/films/{filmId}")
+    @Operation(summary = "Actualizar una película")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se actualizó la película",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = FilmDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró la película",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<FilmDto> updateFilm(@PathVariable("filmId") Integer filmId, @RequestBody FilmSaveDto filmSaveDto){
+        FilmDto updatedFilmDto= filmService.updateFilm(filmId, filmSaveDto);
+        if (updatedFilmDto == null) {
+            return ResponseEntity.notFound().build(); // Manejar casos en los que no se encuentre el film
+        }
+        return new ResponseEntity<>(updatedFilmDto, HttpStatus.OK);
+    }
+
+    @Transactional
+    @DeleteMapping("/films/{filmId}")
+    @Operation(summary = "Eliminar una película")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se eliminó la película",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = FilmDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró la película",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<String> deleteFilm(@PathVariable("filmId") Integer filmId){
+        return new ResponseEntity<>(filmService.deleteFilm(filmId), HttpStatus.OK);
+    }
     //Get content rating by Film Id
     //URL: http://localhost:8080/api/TuCine/v1/films/{id}/contentRating
     //Method: GET
