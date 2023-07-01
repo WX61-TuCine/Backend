@@ -99,6 +99,15 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.save(group);
     }
 
+    @Override
+    public String deleteGroup(Integer id) {
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("No se encontró el grupo con el ID: " + id));
+
+        groupRepository.delete(group);
+        return "Se eliminó el grupo con el ID: " + id;
+    }
+
 
     private void groupValidate(GroupDto group){
         if(group.getName()==null || group.getName().isEmpty()){

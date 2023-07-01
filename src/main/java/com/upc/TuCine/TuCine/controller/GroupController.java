@@ -111,4 +111,15 @@ public class GroupController {
         }
         return new ResponseEntity<>(groupsDtoList, HttpStatus.OK);
     }
+
+    @DeleteMapping("/groups/{id}")
+    @Operation(summary = "Eliminar un grupo")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Se eliminó el grupo"
+    )
+    public ResponseEntity<String> deleteGroup(@PathVariable Integer id) {
+        String message = groupService.deleteGroup(id);
+        return ResponseEntity.ok(message);
+    }
 }

@@ -16,6 +16,8 @@ public interface GroupService {
 
     void addTopicToGroup(Integer groupId, Integer topicId);
 
+    String deleteGroup(Integer id);
+
     PersonDto getPersonByGroupId(Integer id);
 
 }
