@@ -74,16 +74,16 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDto updateTicket(Integer id, TicketDto ticketDto) {
+    public TicketDto updateTicket(Integer id, TicketSaveDto ticketSaveDto) {
+
         Ticket ticketToUpdate = ticketRepository.findById(id).orElse(null);
         if (ticketToUpdate == null) {
             return null; // O lanzar una excepción si lo prefieres
         }
 
-        validateTicket(ticketDto);
-        existsCustomerById(ticketDto.getCustomer().getId());
-        existsShowtimeById(ticketDto.getShowtime().getId());
+        TicketDto ticketDto = modelMapper.map(ticketSaveDto, TicketDto.class);
 
+        validateTicket(ticketDto);
 
         Customer customer = customerRepository.findById(ticketDto.getCustomer().getId()).orElse(null);
         ticketDto.setCustomer(customer);

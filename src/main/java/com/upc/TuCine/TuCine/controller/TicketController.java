@@ -91,8 +91,8 @@ public class TicketController {
     @Transactional
     @PutMapping("/tickets/{id}")
     @Operation(summary = "Actualizar ticket")
-    public ResponseEntity<TicketDto> updateTicket(@PathVariable Integer id, @RequestBody TicketDto ticketDto){
-        TicketDto updatedTicketDto = ticketService.updateTicket(id, ticketDto);
+    public ResponseEntity<TicketDto> updateTicket(@PathVariable Integer id, @RequestBody TicketSaveDto ticketSaveDto){
+        TicketDto updatedTicketDto = ticketService.updateTicket(id, ticketSaveDto);
         if (updatedTicketDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -11,7 +11,7 @@ public interface TicketService {
 
     TicketDto createTicket(TicketSaveDto ticketSaveDto);
 
-    TicketDto updateTicket(Integer id, TicketDto ticketDto);
+    TicketDto updateTicket(Integer id, TicketSaveDto ticketSaveDto);
 
     TicketDto deleteTicket(Integer id);
 
