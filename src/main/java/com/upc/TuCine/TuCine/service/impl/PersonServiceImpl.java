@@ -79,6 +79,32 @@ public class PersonServiceImpl implements PersonService {
         Person person = DtoToEntity(personDto);
         return EntityToDto(personRepository.save(person));
     }
+    @Override
+    public PersonDto updatePerson(Integer id, PersonSaveDto personSaveDto) {
+        PersonDto personDto = modelMapper.map(personSaveDto, PersonDto.class);
+
+        validatePerson(personDto);
+        existsByPersonEmail(personDto.getEmail());
+
+        Person person = DtoToEntity(personDto);
+        Person personUpdate = personRepository.findById(id).orElseThrow(() -> new ValidationException("No existe la persona"));
+        personUpdate.setFirstName(person.getFirstName());
+        personUpdate.setLastName(person.getLastName());
+        personUpdate.setNumberDni(person.getNumberDni());
+        personUpdate.setEmail(person.getEmail());
+        personUpdate.setPassword(person.getPassword());
+        personUpdate.setGender(person.getGender());
+        personUpdate.setTypeUser(person.getTypeUser());
+        return EntityToDto(personRepository.save(personUpdate));
+
+    }
+
+    @Override
+    public String deletePerson(Integer id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ValidationException("No existe la persona"));
+        personRepository.delete(person);
+        return "La persona con nombre " + person.getFirstName() + " " + person.getLastName() + " ha sido eliminada";
+    }
 
     @Override
     public List<GroupDto> getAllGroupsByPersonId(Integer id) {

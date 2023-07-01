@@ -120,5 +120,60 @@ public class PersonController {
         return new ResponseEntity<>(personService.createPerson(personSaveDto), HttpStatus.CREATED);
     }
 
+    @Transactional
+    @PutMapping("/persons/{id}")
+    @Operation(summary = "Actualizar una persona")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se actualizó la persona",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = PersonSaveDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró la persona",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<PersonDto> updatePerson(@PathVariable("id") Integer id, @RequestBody PersonSaveDto personSaveDto){
+        PersonDto personDto = personService.updatePerson(id, personSaveDto);
+        if (personDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(personDto, HttpStatus.OK);
+    }
+
+    @Transactional
+    @DeleteMapping("/persons/{id}")
+    @Operation(summary = "Eliminar una persona")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se eliminó la persona",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = PersonDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró la persona",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<String> deletePerson(@PathVariable Integer id){
+        return new ResponseEntity<>(personService.deletePerson(id), HttpStatus.OK);
+    }
 
 }

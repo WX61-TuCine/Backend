@@ -14,5 +14,9 @@ public interface PersonService {
 
     PersonDto createPerson(PersonSaveDto personSaveDto);
 
+    PersonDto updatePerson(Integer id, PersonSaveDto personSaveDto);
+
+    String deletePerson(Integer id);
+
     List<GroupDto> getAllGroupsByPersonId(Integer id);
 }
