@@ -73,7 +73,7 @@ public class TopicServiceImpl implements TopicService {
     public String deleteTopic(Integer id) {
         Topic topic = topicRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el tema"));
         topicRepository.delete(topic);
-        return "Tema" + topic.getName() + "eliminado";
+        return "Tema " + topic.getName() + " eliminado";
     }
 
     private void topicValidate(TopicDto topicDto) {

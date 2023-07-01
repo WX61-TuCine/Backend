@@ -63,6 +63,21 @@ public class ContentRatingServiceImpl implements ContentRatingService {
         return EntityToDto(contentRating);
     }
 
+    @Override
+    public ContentRatingDto updateContentRating(Integer id, ContentRatingSaveDto contentRatingSaveDto) {
+        ContentRatingDto contentRatingDto = modelMapper.map(contentRatingSaveDto, ContentRatingDto.class);
+        ContentRatingDto contentRatingDto1 = getContentRatingById(id);
+        if (contentRatingDto1 == null) {
+            return null;
+        }
+        contentRatingDto.setName(contentRatingDto1.getName());
+        contentRatingDto.setDescription(contentRatingDto1.getDescription());
+
+        validateContentRating(contentRatingDto);
+        ContentRating contentRating = DtoToEntity(contentRatingDto);
+        return EntityToDto(contentRatingRepository.save(contentRating));
+    }
+
     void validateContentRating(ContentRatingDto contentRating) {
         if (contentRating.getName() == null || contentRating.getName().isEmpty()) {
             throw new ValidationException("El nombre de la clasificacion es requerido");

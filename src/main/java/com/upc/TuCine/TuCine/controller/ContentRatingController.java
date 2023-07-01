@@ -107,6 +107,30 @@ public class ContentRatingController {
     public ResponseEntity<ContentRatingDto> createContentRating(@RequestBody ContentRatingSaveDto contentRatingSaveDto){
         return new ResponseEntity<ContentRatingDto>(contentRatingService.createContentRating(contentRatingSaveDto), HttpStatus.CREATED);
     }
-    
 
+    //URL: http://localhost:8080/api/TuCine/v1/contentRatings/{id}
+    //Method: PUT
+    @Transactional
+    @PutMapping("/contentRatings/{id}")
+    @Operation(summary = "Actualizar una clasificación de contenido por su id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se actualizó la clasificación de contenido",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ContentRatingDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró la clasificación de contenido",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<ContentRatingDto> updateContentRating(@PathVariable("id") Integer id, @RequestBody ContentRatingSaveDto contentRatingSaveDto){
+        return new ResponseEntity<ContentRatingDto>(contentRatingService.updateContentRating(id, contentRatingSaveDto), HttpStatus.OK);
+    }
 }

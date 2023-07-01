@@ -13,5 +13,6 @@ public interface ContentRatingService {
 
     ContentRatingDto getContentRatingById(Integer id);
 
+    ContentRatingDto updateContentRating(Integer id, ContentRatingSaveDto contentRatingSaveDto);
 
 }
