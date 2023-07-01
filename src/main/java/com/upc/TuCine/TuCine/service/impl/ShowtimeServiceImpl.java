@@ -96,12 +96,16 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
     @Override
-    public ShowtimeDto updateShowtime(Integer id, ShowtimeDto showtimeDto) {
+    public ShowtimeDto updateShowtime(Integer id, ShowtimeSaveDto showtimeSaveDto) {
         Showtime showtimeToUpdate = showtimeRepository.findById(id).orElse(null);
         if (showtimeToUpdate == null) {
             return null; // O lanzar una excepción si lo prefieres
         }
+
+        ShowtimeDto showtimeDto = modelMapper.map(showtimeSaveDto, ShowtimeDto.class);
+
         validateShowtime(showtimeDto);
+
         existsFilmById(showtimeDto.getFilm().getId());
         existsBusinessById(showtimeDto.getBusiness().getId());
         existsPromotionById(showtimeDto.getPromotion().getId());

@@ -120,8 +120,8 @@ public class ShowtimeController {
     @Transactional
     @PutMapping("/showtimes/{id}")
     @Operation(summary = "Actualizar un showtime")
-    public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeDto showtimeDto) {
-        ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeDto);
+    public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeSaveDto showtimeSaveDto ) {
+        ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeSaveDto);
         if (updatedShowtimeDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

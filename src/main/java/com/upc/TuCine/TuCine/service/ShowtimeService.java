@@ -14,7 +14,7 @@ public interface ShowtimeService {
 
     ShowtimeDto createShowtime(ShowtimeSaveDto showtimeSaveDto);
 
-    ShowtimeDto updateShowtime(Integer id, ShowtimeDto showtimeDto);
+    ShowtimeDto updateShowtime(Integer id, ShowtimeSaveDto showtimeSaveDto);
 
     ShowtimeDto deleteShowtime(Integer id);
 
