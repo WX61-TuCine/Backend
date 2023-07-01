@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.model.Actor;
 import com.upc.TuCine.TuCine.model.ContentRating;
 import com.upc.TuCine.TuCine.repository.ContentRatingRepository;
 import com.upc.TuCine.TuCine.service.ContentRatingService;
@@ -76,6 +77,14 @@ public class ContentRatingServiceImpl implements ContentRatingService {
         validateContentRating(contentRatingDto);
         ContentRating contentRating = DtoToEntity(contentRatingDto);
         return EntityToDto(contentRatingRepository.save(contentRating));
+    }
+
+    @Override
+    public String deleteContentRating(Integer id) {
+
+        ContentRating contentRating = contentRatingRepository.findById(id).orElseThrow(() -> new ValidationException("No existe la clasificacion"));
+        contentRatingRepository.delete(contentRating);
+        return "La clasificacion con nombre " + contentRating.getName() + " ha sido eliminada";
     }
 
     void validateContentRating(ContentRatingDto contentRating) {

@@ -133,4 +133,28 @@ public class ContentRatingController {
     public ResponseEntity<ContentRatingDto> updateContentRating(@PathVariable("id") Integer id, @RequestBody ContentRatingSaveDto contentRatingSaveDto){
         return new ResponseEntity<ContentRatingDto>(contentRatingService.updateContentRating(id, contentRatingSaveDto), HttpStatus.OK);
     }
+
+    @Transactional
+    @DeleteMapping("/contentRatings/{id}")
+    @Operation(summary = "Eliminar una clasificación de contenido por su id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se eliminó la clasificación de contenido",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ContentRatingDto.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró la clasificación de contenido",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<String> deleteContentRating(@PathVariable Integer id){
+        return new ResponseEntity<>(contentRatingService.deleteContentRating(id), HttpStatus.OK);
+    }
 }

@@ -15,4 +15,6 @@ public interface ContentRatingService {
 
     ContentRatingDto updateContentRating(Integer id, ContentRatingSaveDto contentRatingSaveDto);
 
+    String deleteContentRating(Integer id);
+
 }
