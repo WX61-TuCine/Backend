@@ -69,6 +69,13 @@ public class TopicServiceImpl implements TopicService {
         return EntityToDto(topicRepository.save(topicUpdate));
     }
 
+    @Override
+    public String deleteTopic(Integer id) {
+        Topic topic = topicRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el tema"));
+        topicRepository.delete(topic);
+        return "Tema" + topic.getName() + "eliminado";
+    }
+
     private void topicValidate(TopicDto topicDto) {
         if (topicDto.getName() == null || topicDto.getName().isEmpty()) {
             throw new ValidationException("El nombre del tema no puede estar vacío");

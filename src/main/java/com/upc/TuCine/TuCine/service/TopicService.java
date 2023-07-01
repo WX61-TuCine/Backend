@@ -12,4 +12,6 @@ public interface TopicService {
     TopicDto createTopic(TopicSaveDto topicSaveDto);
 
     TopicDto updateTopic(Integer id, TopicSaveDto topicSaveDto);
+
+    String deleteTopic(Integer id);
 }

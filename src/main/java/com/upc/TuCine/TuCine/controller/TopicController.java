@@ -106,5 +106,30 @@ public class TopicController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedTopic);
     }
 
+    @Transactional
+    @DeleteMapping("/topics/{id}")
+    @Operation(summary = "Eliminar un topic")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Se eliminó el topic",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No se encontró el topic",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<String> deleteTopic(@PathVariable Integer id) {
+        String message = topicService.deleteTopic(id);
+        return ResponseEntity.status(HttpStatus.OK).body(message);
+    }
+
 }
 
