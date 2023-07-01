@@ -94,7 +94,32 @@ public class TypeUserController {
         return new ResponseEntity<>(createdTypeUserDto, HttpStatus.CREATED);
     }
 
-
+    @Transactional
+    @PutMapping("/typeUsers/{id}")
+    @Operation(summary = "Actualizar un TypeUser", description = "Actualiza un tipo de usuario con la información proporcionada")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se actualizó el tipo de usuario",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TypeUserDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se pudo actualizar el tipo de usuario",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<TypeUserDto> updateTypeUser(@PathVariable Integer id, @RequestBody TypeUserSaveDto typeUserSaveDto){
+        TypeUserDto updatedTypeUserDto= typeUserService.updateTypeUser(id,typeUserSaveDto);
+        return new ResponseEntity<>(updatedTypeUserDto, HttpStatus.OK);
+    }
 
     @Transactional
     @DeleteMapping("/typeUsers/{id}")
