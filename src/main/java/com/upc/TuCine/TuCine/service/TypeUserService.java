@@ -11,5 +11,6 @@ public interface TypeUserService {
 
     TypeUserDto createTypeUser(TypeUserSaveDto typeUserDto);
 
+    TypeUserDto updateTypeUser(Integer id, TypeUserSaveDto typeUserDto);
 
 }

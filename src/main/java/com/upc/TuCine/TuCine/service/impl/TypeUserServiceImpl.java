@@ -1,5 +1,6 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.ActorDto;
 import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.TypeUserDto;
 import com.upc.TuCine.TuCine.dto.save.TypeUser.TypeUserSaveDto;
@@ -54,6 +55,17 @@ public class TypeUserServiceImpl implements TypeUserService {
         TypeUser createdTypeUser = typeUserRepository.save(typeUser);
         return EntityToDto(createdTypeUser);
     }
+
+    @Override
+    public TypeUserDto updateTypeUser(Integer id, TypeUserSaveDto typeUserSaveDto) {
+        TypeUser typeUser = typeUserRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("El tipo de usuario no existe"));
+        TypeUserDto typeUser1 = EntityToDto(typeUser);
+        validateTypeUser(typeUser1);
+        typeUser.setName(typeUserSaveDto.getName());
+        return EntityToDto(typeUserRepository.save(typeUser));
+    }
+
     void validateTypeUser(TypeUserDto typeUser) {
         if (typeUser.getName() == null || typeUser.getName().isEmpty()) {
             throw new ValidationException("El nombre del tipo de usuario no puede estar vacío");
