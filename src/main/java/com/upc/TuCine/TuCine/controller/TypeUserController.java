@@ -94,4 +94,32 @@ public class TypeUserController {
         return new ResponseEntity<>(createdTypeUserDto, HttpStatus.CREATED);
     }
 
+
+
+    @Transactional
+    @DeleteMapping("/typeUsers/{id}")
+    @Operation(summary = "Eliminar un TypeUser", description = "Elimina un tipo de usuario con la información proporcionada")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Se eliminó el tipo de usuario",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = TypeUserDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se pudo eliminar el tipo de usuario",
+                            content = @Content
+                    )
+            }
+    )
+    public ResponseEntity<String> deleteTypeUser(@PathVariable Integer id){
+        return new ResponseEntity<>(typeUserService.deleteTypeUser(id), HttpStatus.OK);
+    }
+
 }

@@ -66,6 +66,14 @@ public class TypeUserServiceImpl implements TypeUserService {
         return EntityToDto(typeUserRepository.save(typeUser));
     }
 
+    @Override
+    public String deleteTypeUser(Integer id) {
+        TypeUser typeUser = typeUserRepository.findById(id)
+                .orElseThrow(() -> new ValidationException("El tipo de usuario no existe"));
+        typeUserRepository.delete(typeUser);
+        return "El tipo de usuario ha sido eliminado";
+    }
+
     void validateTypeUser(TypeUserDto typeUser) {
         if (typeUser.getName() == null || typeUser.getName().isEmpty()) {
             throw new ValidationException("El nombre del tipo de usuario no puede estar vacío");

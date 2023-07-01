@@ -13,4 +13,6 @@ public interface TypeUserService {
 
     TypeUserDto updateTypeUser(Integer id, TypeUserSaveDto typeUserDto);
 
+    String deleteTypeUser(Integer id);
+
 }
