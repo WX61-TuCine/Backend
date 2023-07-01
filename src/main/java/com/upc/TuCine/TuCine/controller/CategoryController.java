@@ -67,6 +67,35 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.createCategory(categorySaveDto), HttpStatus.CREATED);
     }
 
+    @Transactional
+    @PutMapping("/categories/{id}")
+    @Operation(summary = "Actualizar una categoria de película")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se actualizó la categoria",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = CategoryDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "La categoria no se pudo actualizar",
+                    content = @Content)
+    })
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable Integer id, @RequestBody CategorySaveDto categorySaveDto){
+        return new ResponseEntity<>(categoryService.updateCategory(id, categorySaveDto), HttpStatus.OK);
+    }
 
-
+    @Transactional
+    @DeleteMapping("/categories/{id}")
+    @Operation(summary = "Eliminar una categoria de película")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se eliminó la categoria",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = String.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "La categoria no se pudo eliminar",
+                    content = @Content)
+    })
+    public ResponseEntity<String> deleteCategory(@PathVariable Integer id){
+        return new ResponseEntity<>(categoryService.deleteCategory(id), HttpStatus.OK);
+    }
 }

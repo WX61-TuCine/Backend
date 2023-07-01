@@ -1,8 +1,10 @@
 package com.upc.TuCine.TuCine.service.impl;
 
+import com.upc.TuCine.TuCine.dto.ActorDto;
 import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.save.Category.CategorySaveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.model.Actor;
 import com.upc.TuCine.TuCine.model.Category;
 import com.upc.TuCine.TuCine.repository.CategoryRepository;
 import com.upc.TuCine.TuCine.service.CategoryService;
@@ -53,6 +55,21 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = DtoToEntity(categoryDto);
         return EntityToDto(categoryRepository.save(category));
+    }
+
+    @Override
+    public CategoryDto updateCategory(Integer id, CategorySaveDto categorySaveDto) {
+        CategoryDto categoryDto = modelMapper.map(categorySaveDto, CategoryDto.class);
+        Category category = DtoToEntity(categoryDto);
+        Category categoryUpdate = categoryRepository.findById(id).orElseThrow(() -> new ValidationException("No existe la categoria"));
+        categoryUpdate.setName(category.getName());
+        return EntityToDto(categoryRepository.save(categoryUpdate));
+    }
+    @Override
+    public String deleteCategory(Integer id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new ValidationException("No existe la categoria"));
+        categoryRepository.delete(category);
+        return "La categoria con nombre " + category.getName() + " ha sido eliminado";
     }
 
     private void validateCategory(CategoryDto category) {

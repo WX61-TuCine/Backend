@@ -9,4 +9,8 @@ public interface CategoryService {
 
     List<CategoryDto> getAllCategories();
     CategoryDto createCategory(CategorySaveDto categorySaveDto);
+
+    CategoryDto updateCategory(Integer id, CategorySaveDto categorySaveDto);
+
+    String deleteCategory(Integer id);
 }
