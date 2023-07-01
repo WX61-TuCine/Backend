@@ -131,4 +131,40 @@ public class BusinessController {
     public ResponseEntity<BusinessDto> createBusiness(@RequestBody BusinessSaveDto businessSaveDto){
         return new ResponseEntity<>(businessService.createBusiness(businessSaveDto), HttpStatus.CREATED);
     }
+
+    @Transactional
+    @PutMapping("/businesses/{id}")
+    @Operation(summary = "Actualizar un business")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se actualizo el business",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = BusinessDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "No se encontro el business",
+                    content = @Content)
+    })
+    public ResponseEntity<BusinessDto> updateBusiness(@PathVariable(value = "id") Integer id, @RequestBody BusinessSaveDto businessSaveDto) {
+        BusinessDto businessDto = businessService.updateBusiness(id, businessSaveDto);
+        if (businessDto == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(businessDto, HttpStatus.OK);
+    }
+
+    @Transactional
+    @DeleteMapping("/businesses/{id}")
+    @Operation(summary = "Eliminar un business")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se elimino el business",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = BusinessDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "No se encontro el business",
+                    content = @Content)
+    })
+    public ResponseEntity<String> deleteBusiness(@PathVariable(value = "id") Integer id) {
+        return new ResponseEntity<>(businessService.deleteBusiness(id), HttpStatus.OK);
+    }
 }

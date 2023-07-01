@@ -108,7 +108,6 @@ public class ShowtimeServiceImpl implements ShowtimeService {
 
         existsFilmById(showtimeDto.getFilm().getId());
         existsBusinessById(showtimeDto.getBusiness().getId());
-        existsPromotionById(showtimeDto.getPromotion().getId());
 
         Business business = businessRepository.findById(showtimeDto.getBusiness().getId()).orElse(null);
         showtimeDto.setBusiness(business);

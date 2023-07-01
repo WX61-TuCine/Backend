@@ -13,6 +13,10 @@ public interface BusinessService {
     List<BusinessDto> getAllBusiness();
     BusinessDto getBusinessById(Integer id);
 
+    BusinessDto updateBusiness(Integer id, BusinessSaveDto businessSaveDto);
+
+    String deleteBusiness(Integer id);
+
     BusinessTypeDto getBusinessTypeByBusinessId(Integer id);
 
     List<ShowtimeDto>getAllShowtimesByBusinessId(Integer id);

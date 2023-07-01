@@ -93,7 +93,29 @@ public class BusinessServiceImpl implements BusinessService {
         return EntityToDto(business);
     }
 
+    @Override
+    public BusinessDto updateBusiness(Integer id, BusinessSaveDto businessSaveDto) {
+        BusinessDto businessDto = modelMapper.map(businessSaveDto, BusinessDto.class);
 
+        validateBusiness(businessDto);
+
+        Business business = businessRepository.findById(id).orElse(null);
+        if (business == null) {
+            return null;
+        }
+        businessDto.setId(id);
+        businessDto.setOwner(ownerRepository.findById(businessSaveDto.getOwner().getId()).orElse(null));
+        businessDto.setBusinessType(businessTypeRepository.findById(businessSaveDto.getBusinessType().getId()).orElse(null));
+        business = DtoToEntity(businessDto);
+        return EntityToDto(businessRepository.save(business));
+    }
+
+    @Override
+    public String deleteBusiness(Integer id) {
+        Business business = businessRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el negocio"));
+        businessRepository.delete(business);
+        return "El negocio con nombre " + business.getName() + " ha sido eliminado";
+    }
     @Override
     public BusinessTypeDto getBusinessTypeByBusinessId(Integer id) {
         Business business = businessRepository.getById(id);
