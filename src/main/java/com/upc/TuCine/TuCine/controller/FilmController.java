@@ -97,7 +97,7 @@ public class FilmController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = FilmDto.class)
+                                    schema = @Schema(implementation = FilmSaveDto.class)
                             )
                     }
             ),
