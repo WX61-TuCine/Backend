@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class FilmSaveDto {
-    private Integer id;
     private String title;
     private Integer year;
     private String synopsis;
