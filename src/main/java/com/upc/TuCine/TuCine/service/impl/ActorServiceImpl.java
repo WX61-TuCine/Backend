@@ -54,6 +54,18 @@ public class ActorServiceImpl implements ActorService {
         return actorDtos;
     }
 
+    @Override
+    public ActorDto updateActor(Integer id, ActorSaveDto actorSaveDto) {
+        ActorDto actorDto = modelMapper.map(actorSaveDto, ActorDto.class);
+        Actor actor = DtoToEntity(actorDto);
+        Actor actorUpdate = actorRepository.findById(id).orElseThrow(() -> new ValidationException("No existe el actor"));
+        actorUpdate.setFirstName(actor.getFirstName());
+        actorUpdate.setLastName(actor.getLastName());
+        actorUpdate.setBirthday(actor.getBirthday());
+        return EntityToDto(actorRepository.save(actorUpdate));
+    }
+
+
     private void validateActor(ActorDto actor) {
         if (actor.getFirstName() == null || actor.getFirstName().isEmpty()) {
             throw new ValidationException("El nombre es obligatorio");

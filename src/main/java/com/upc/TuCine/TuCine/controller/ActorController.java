@@ -65,4 +65,22 @@ public class ActorController {
         return new ResponseEntity<ActorDto>(actorService.createActor(actorSaveDto), HttpStatus.CREATED);
     }
 
+    @Transactional
+    @PutMapping("/actors/{id}")
+    @Operation(summary = "Actualizar un actor")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200", description = "Se actualizó el actor",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema= @Schema(implementation = ActorDto.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "El actor no se pudo actualizar",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor",
+                    content = @Content)
+    })
+    public ResponseEntity<ActorDto> updateActor(@PathVariable Integer id, @RequestBody ActorSaveDto actorSaveDto){
+        return new ResponseEntity<>(actorService.updateActor(id, actorSaveDto), HttpStatus.OK);
+    }
+
 }

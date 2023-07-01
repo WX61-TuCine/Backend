@@ -10,4 +10,6 @@ public interface ActorService {
 
     List<ActorDto> getAllActors();
 
+    ActorDto updateActor(Integer id,ActorSaveDto actorSaveDto);
+
 }
