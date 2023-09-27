@@ -1,4 +1,4 @@
-package com.upc.TuCine.TuCine.exception;
+package com.upc.TuCine.TuCine.shared.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

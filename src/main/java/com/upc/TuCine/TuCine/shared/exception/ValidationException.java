@@ -1,4 +1,4 @@
-package com.upc.TuCine.TuCine.exception;
+package com.upc.TuCine.TuCine.shared.exception;
 
 public class ValidationException extends RuntimeException{
     public ValidationException() {

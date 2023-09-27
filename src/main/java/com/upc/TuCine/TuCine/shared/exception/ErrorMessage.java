@@ -1,4 +1,4 @@
-package com.upc.TuCine.TuCine.exception;
+package com.upc.TuCine.TuCine.shared.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
