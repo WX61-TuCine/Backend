@@ -37,6 +37,9 @@ public class Promotion {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "image_src", nullable = false)
+    private String imageSrc;
+
     @Column(name = "discount", nullable = false)
     private Float discount;
 

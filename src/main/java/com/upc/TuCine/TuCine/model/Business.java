@@ -2,6 +2,7 @@ package com.upc.TuCine.TuCine.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.upc.TuCine.TuCine.user.domain.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,28 +30,27 @@ public class Business {
     private String ruc;
     @Column(name = "phone", length = 9, nullable = false)
     private String phone;
-    @Column(name = "email", length = 100, nullable = false)
-    private String email;
-    @Column(name = "image_logo", length = 5000, nullable = false)
-    private String imageLogo;
-    @Column(name = "image_banner", length = 5000, nullable = false)
-    private String imageBanner;
-    @Column(name = "description", length = 2000, nullable = false)
+    @Column(name = "logo_src")
+    private String logoSrc;
+    @Column(name = "banner_src")
+    private String bannerSrc;
+    @Column(name = "description")
     private String description;
-    @Column(name = "date_attention", length = 800, nullable = false)
-    private String dateAttention;
-    @Column(name = "address", length = 200, nullable = false)
+    @Column(name = "address")
     private String address;
-    @Column(name = "reference_address", length = 200, nullable = false)
-    private String referenceAddress;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "capacity")
+    private Integer capacity;
+    @Column(name = "opening_hours")
+    private String openingHours;
 
     @ManyToOne
-    @JoinColumn(name = "Owner_id",nullable = false, foreignKey = @ForeignKey(name = "FK_OWNER_ID"))
+    @JoinColumn(name = "User_id",nullable = false, foreignKey = @ForeignKey(name = "FK_USER_ID"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Owner owner;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "BusinessType_id",nullable = false, foreignKey = @ForeignKey(name = "FK_DISTRICT_ID"))
-
     private BusinessType businessType;
 }

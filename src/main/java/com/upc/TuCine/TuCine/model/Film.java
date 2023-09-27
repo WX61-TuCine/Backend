@@ -27,10 +27,10 @@ public class Film {
     private Integer year;
     @Column(name = "synopsis", length = 5000, nullable = false)
     private String synopsis;
-    @Column(name = "poster", length = 5000, nullable = true)
-    private String poster;
-    @Column(name = "trailer", length = 5000, nullable = true)
-    private String trailer;
+    @Column(name = "poster_src",nullable = false)
+    private String posterSrc;
+    @Column(name = "trailer_src",nullable = false)
+    private String trailerSrc;
     @Column(name = "duration", nullable = false)
     private Integer duration;
 

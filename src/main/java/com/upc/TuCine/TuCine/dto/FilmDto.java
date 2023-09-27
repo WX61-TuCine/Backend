@@ -14,8 +14,8 @@ public class FilmDto {
     private String title;
     private Integer year;
     private String synopsis;
-    private String poster;
-    private String trailer;
+    private String posterSrc;
+    private String trailerSrc;
     private Integer duration;
     private ContentRating contentRating;
     private List<Actor> actors;

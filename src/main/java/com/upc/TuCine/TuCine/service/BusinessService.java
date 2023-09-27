@@ -17,7 +17,4 @@ public interface BusinessService {
 
     BusinessTypeDto getBusinessTypeByBusinessId(Integer id);
 
-    List<ShowtimeDto>getAllShowtimesByBusinessId(Integer id);
-
-
 }
