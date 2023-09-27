@@ -1,8 +1,9 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.*;
+
 import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
+
 import com.upc.TuCine.TuCine.service.FilmService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -223,40 +223,6 @@ public class FilmController {
             return ResponseEntity.notFound().build(); // Manejar casos en los que no se encuentre el film
         }
         return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
-    }
-
-    //Get all the Showtimes of a Film by Film ID
-    //URL: http://localhost:8080/api/TuCine/v1/films/{id}/showtimes
-    //Method: GET
-    @Transactional(readOnly = true)
-    @GetMapping("/films/{id}/showtimes")
-    @Operation(summary = "Obtener todos los showtimes de una película por su id")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Se obtuvieron todos los showtimes de la película",
-                            content = {
-                                    @Content(
-                                            mediaType = "application/json",
-                                            schema = @Schema(implementation = ShowtimeDto.class,type = "array")
-                                    )
-                            }
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "No se encontraron los showtimes",
-                            content = @Content
-                    )
-            }
-    )
-
-    public ResponseEntity<List<ShowtimeDto>> getAllShowtimesByFilmId(@PathVariable("id") Integer id) {
-        List<ShowtimeDto> showtimeDtoList = filmService.getAllShowtimesByFilmId(id);
-        if (showtimeDtoList == null) {
-            return ResponseEntity.notFound().build(); // Manejar casos en los que no se encuentre el film
-        }
-        return new ResponseEntity<>(showtimeDtoList, HttpStatus.OK);
     }
 
     //Get All Actors By Film ID

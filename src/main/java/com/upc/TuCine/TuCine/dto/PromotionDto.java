@@ -15,6 +15,7 @@ public class PromotionDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     private String description;
+    private String imageSrc;
     private Float discount;
     private Business business;
 }

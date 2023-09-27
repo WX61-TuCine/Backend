@@ -1,22 +1,20 @@
 package com.upc.TuCine.TuCine.service.impl;
 
-import com.upc.TuCine.TuCine.dto.ShowtimeDto;
 import com.upc.TuCine.TuCine.dto.TicketDto;
 import com.upc.TuCine.TuCine.dto.save.Ticket.TicketSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
-import com.upc.TuCine.TuCine.model.Customer;
-import com.upc.TuCine.TuCine.model.Promotion;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.Showtime;
 import com.upc.TuCine.TuCine.model.Ticket;
-import com.upc.TuCine.TuCine.repository.CustomerRepository;
-import com.upc.TuCine.TuCine.repository.FilmRepository;
 import com.upc.TuCine.TuCine.repository.ShowtimeRepository;
 import com.upc.TuCine.TuCine.repository.TicketRepository;
 import com.upc.TuCine.TuCine.service.TicketService;
+import com.upc.TuCine.TuCine.user.domain.model.User;
+import com.upc.TuCine.TuCine.user.persistence.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +25,7 @@ public class TicketServiceImpl implements TicketService {
     private TicketRepository ticketRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private ShowtimeRepository showtimeRepository;
@@ -59,14 +57,17 @@ public class TicketServiceImpl implements TicketService {
         TicketDto ticketDto = modelMapper.map(ticketSaveDto, TicketDto.class);
 
         validateTicket(ticketDto);
-        existsCustomerById(ticketDto.getCustomer().getId());
+        existsUserById(ticketDto.getUser().getId());
         existsShowtimeById(ticketDto.getShowtime().getId());
 
-        Customer customer = customerRepository.findById(ticketDto.getCustomer().getId()).orElse(null);
-        ticketDto.setCustomer(customer);
+        User user = userRepository.findById(ticketDto.getUser().getId()).orElse(null);
+        ticketDto.setUser(user);
 
         Showtime showtime = showtimeRepository.findById(ticketDto.getShowtime().getId()).orElse(null);
         ticketDto.setShowtime(showtime);
+
+        ticketDto.setStatus("Activo");
+        ticketDto.setDateEmition(LocalDate.now());
 
         Ticket ticket = DtoToEntity(ticketDto);
         Ticket createdTicket = ticketRepository.save(ticket);
@@ -85,21 +86,21 @@ public class TicketServiceImpl implements TicketService {
 
         validateTicket(ticketDto);
 
-        Customer customer = customerRepository.findById(ticketDto.getCustomer().getId()).orElse(null);
-        ticketDto.setCustomer(customer);
+        User user = userRepository.findById(ticketDto.getUser().getId()).orElse(null);
+        ticketDto.setUser(user);
 
         Showtime showtime = showtimeRepository.findById(ticketDto.getShowtime().getId()).orElse(null);
         ticketDto.setShowtime(showtime);
 
 
         // Actualizar los campos del ticket existente
-        ticketToUpdate.setCustomer(ticketDto.getCustomer());
+        ticketToUpdate.setUser(ticketDto.getUser());
         ticketToUpdate.setShowtime(ticketDto.getShowtime());
         ticketToUpdate.setNumberSeats(ticketDto.getNumberSeats());
         ticketToUpdate.setTotalPrice(ticketDto.getTotalPrice());
 
         validateTicket(ticketDto);
-        existsCustomerById(ticketDto.getCustomer().getId());
+        existsUserById(ticketDto.getUser().getId());
         existsShowtimeById(ticketDto.getShowtime().getId());
 
         Ticket updatedTicket = ticketRepository.save(ticketToUpdate);
@@ -117,7 +118,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private void validateTicket(TicketDto ticket) {
-        if (ticket.getCustomer() == null) {
+        if (ticket.getUser() == null) {
             throw new ValidationException("Customer id es requerido");
         }
         if (ticket.getShowtime() == null) {
@@ -131,8 +132,8 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    private void existsCustomerById(Integer id) {
-        if (!customerRepository.existsById(id)) {
+    private void existsUserById(Integer id) {
+        if (!userRepository.existsById(id)) {
             throw new ValidationException("Customer id not found");
         }
     }

@@ -2,7 +2,8 @@ package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
 import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeDtoSave;
-import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeDtoSave;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
 import com.upc.TuCine.TuCine.model.BusinessType;
 import com.upc.TuCine.TuCine.repository.BusinessTypeRepository;
 import com.upc.TuCine.TuCine.service.BusinessTypeService;

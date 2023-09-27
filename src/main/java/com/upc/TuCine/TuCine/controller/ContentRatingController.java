@@ -4,7 +4,10 @@ package com.upc.TuCine.TuCine.controller;
 import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+
+import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
+
 import com.upc.TuCine.TuCine.service.ContentRatingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

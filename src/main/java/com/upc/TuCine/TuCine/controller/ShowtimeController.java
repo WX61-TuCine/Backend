@@ -109,8 +109,9 @@ public class ShowtimeController {
                     )
             }
     )
-    public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeSaveDto showtimeSaveDto) {
-        ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeSaveDto);
+
+    public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
+        ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeDto);
         return new ResponseEntity<>(createdShowtimeDto, HttpStatus.CREATED);
     }
 
@@ -119,9 +120,10 @@ public class ShowtimeController {
     //Method: UPDATE
     @Transactional
     @PutMapping("/showtimes/{id}")
+
     @Operation(summary = "Actualizar un showtime")
-    public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeSaveDto showtimeSaveDto ) {
-        ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeSaveDto);
+    public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeDto showtimeDto ) {
+        ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeDto);
         if (updatedShowtimeDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

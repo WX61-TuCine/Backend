@@ -1,10 +1,11 @@
 package com.upc.TuCine.TuCine.controller;
 
-import com.upc.TuCine.TuCine.dto.PersonDto;
+
 import com.upc.TuCine.TuCine.dto.PromotionDto;
-import com.upc.TuCine.TuCine.dto.TypeUserDto;
+
 import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
 import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
+
 import com.upc.TuCine.TuCine.service.PromotionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

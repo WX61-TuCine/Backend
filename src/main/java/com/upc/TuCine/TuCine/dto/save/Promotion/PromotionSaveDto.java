@@ -13,6 +13,9 @@ public class PromotionSaveDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     private String description;
+
+    private String imageSrc;
+
     private Float discount;
     private PromotionBusinessSaveDto business;
 }

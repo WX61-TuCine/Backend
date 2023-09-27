@@ -25,28 +25,22 @@ public class Showtime {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "play_date", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate playDate;
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "play_time", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime time;
+    private LocalTime playTime;
 
-    @Column(name = "price")
-    private Float price;
+    @Column(name = "capacity", nullable = false)
+    private Integer capacity;
+
+    @Column(name = "unit_price")
+    private Float unitPrice;
 
     @ManyToOne
-    @JoinColumn(name = "film_id", nullable = false, foreignKey = @ForeignKey(name = "FK_SHOWTIME_FILM"))
+    @JoinColumn(name = "available_film_id", nullable = false, foreignKey = @ForeignKey(name = "FK_SHOWTIME_FILM"))
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Film film;
-
-    @ManyToOne
-    @JoinColumn(name = "business_id", nullable = false, foreignKey = @ForeignKey(name = "FK_SHOWTIME_BUSINESS"))
-    private Business business;
-
-    @ManyToOne
-    @JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(name = "FK_SHOWTIME_PROMOTION"))
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Promotion promotion;
+    private AvailableFilm availableFilm;
 }

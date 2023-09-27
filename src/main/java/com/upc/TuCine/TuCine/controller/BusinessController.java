@@ -91,28 +91,6 @@ public class BusinessController {
         }
         return new ResponseEntity<>(businessTypeDto, HttpStatus.OK);
     }
-    //Get all Showtimes by Business Id
-    //URL: http://localhost:8080/api/TuCine/v1/businesses/{id}/showtimes
-    //Method: GET
-    @Transactional(readOnly = true)
-    @GetMapping("/businesses/{id}/showtimes")
-    @Operation(summary = "Obtener todos los showtimes mediante el id del Business")
-    @ApiResponses(value={
-            @ApiResponse(responseCode = "200", description = "Se obtuvo la lista de showtimes",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema= @Schema(implementation = ShowtimeDto.class, type = "array"))
-                    }),
-            @ApiResponse(responseCode = "404", description = "No se encontro el business",
-                    content = @Content)
-    })
-    public ResponseEntity<List<ShowtimeDto>> getAllShowtimesByBusinessId(@PathVariable("id") Integer id) {
-        List<ShowtimeDto> showtimeDtoList = businessService.getAllShowtimesByBusinessId(id);
-        if (showtimeDtoList == null) {
-            return ResponseEntity.notFound().build(); // Manejar casos en los que no se encuentre el business
-        }
-        return new ResponseEntity<>(showtimeDtoList, HttpStatus.OK);
-    }
 
     //URL: http://localhost:8080/api/TuCine/v1/businesses
     //Method: POST

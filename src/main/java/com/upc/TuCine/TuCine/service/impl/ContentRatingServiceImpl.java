@@ -3,8 +3,8 @@ package com.upc.TuCine.TuCine.service.impl;
 import com.upc.TuCine.TuCine.dto.CategoryDto;
 import com.upc.TuCine.TuCine.dto.ContentRatingDto;
 import com.upc.TuCine.TuCine.dto.save.ContentRating.ContentRatingSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
-import com.upc.TuCine.TuCine.model.Actor;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+
 import com.upc.TuCine.TuCine.model.ContentRating;
 import com.upc.TuCine.TuCine.repository.ContentRatingRepository;
 import com.upc.TuCine.TuCine.service.ContentRatingService;

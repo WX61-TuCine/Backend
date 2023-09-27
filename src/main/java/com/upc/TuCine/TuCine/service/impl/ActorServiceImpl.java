@@ -1,8 +1,12 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.ActorDto;
+
 import com.upc.TuCine.TuCine.dto.save.Actor.ActorSaveDto;
-import com.upc.TuCine.TuCine.exception.ValidationException;
+
+import com.upc.TuCine.TuCine.dto.save.Actor.ActorSaveDto;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+
 import com.upc.TuCine.TuCine.model.Actor;
 import com.upc.TuCine.TuCine.repository.ActorRepository;
 import com.upc.TuCine.TuCine.service.ActorService;
