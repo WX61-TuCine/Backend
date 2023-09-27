@@ -1,8 +1,14 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.*;
+<<<<<<< Updated upstream
 import com.upc.TuCine.TuCine.exception.ResourceNotFoundException;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+=======
+import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
+import com.upc.TuCine.TuCine.shared.exception.ResourceNotFoundException;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+>>>>>>> Stashed changes
 import com.upc.TuCine.TuCine.model.*;
 import com.upc.TuCine.TuCine.repository.*;
 import com.upc.TuCine.TuCine.service.FilmService;
@@ -123,17 +129,6 @@ public class FilmServiceImpl implements FilmService {
 
     }
 
-    @Override
-    public List<ShowtimeDto> getAllShowtimesByFilmId(Integer id) {
-        Film film = filmRepository.findById(id).orElse(null);
-        if (film == null) {
-            return null;
-        }
-        List<ShowtimeDto> showtimes = showtimeRepository.findAllByFilm_id(film.getId()).stream()
-                .map(showtime -> modelMapper.map(showtime, ShowtimeDto.class))
-                .collect(Collectors.toList());
-        return showtimes;
-    }
 
     void validateFilm(FilmDto film) {
 

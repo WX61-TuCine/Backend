@@ -1,9 +1,20 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.*;
+<<<<<<< Updated upstream
 import com.upc.TuCine.TuCine.exception.ValidationException;
 import com.upc.TuCine.TuCine.service.FilmService;
 import jakarta.servlet.http.HttpServletResponse;
+=======
+import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
+import com.upc.TuCine.TuCine.service.FilmService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,6 +91,7 @@ public class FilmController {
         return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
+<<<<<<< Updated upstream
     //Get all the Showtimes of a Film by Film ID
     //URL: http://localhost:8080/api/TuCine/v1/films/{id}/showtimes
     //Method: GET
@@ -92,6 +104,9 @@ public class FilmController {
         }
         return new ResponseEntity<>(showtimeDtoList, HttpStatus.OK);
     }
+=======
+
+>>>>>>> Stashed changes
 
     //Get All Actors By Film ID
     //URL: http://localhost:8080/api/TuCine/v1/films/{id}/actors

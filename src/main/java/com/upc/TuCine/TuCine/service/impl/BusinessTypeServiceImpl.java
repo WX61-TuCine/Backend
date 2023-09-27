@@ -1,6 +1,11 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.BusinessTypeDto;
+<<<<<<< Updated upstream
+=======
+import com.upc.TuCine.TuCine.dto.save.BusinessType.BusinessTypeDtoSave;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+>>>>>>> Stashed changes
 import com.upc.TuCine.TuCine.model.BusinessType;
 import com.upc.TuCine.TuCine.repository.BusinessTypeRepository;
 import com.upc.TuCine.TuCine.service.BusinessTypeService;

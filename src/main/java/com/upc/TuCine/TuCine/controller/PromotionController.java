@@ -1,6 +1,11 @@
 package com.upc.TuCine.TuCine.controller;
 
 import com.upc.TuCine.TuCine.dto.PromotionDto;
+<<<<<<< Updated upstream
+=======
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
+>>>>>>> Stashed changes
 import com.upc.TuCine.TuCine.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

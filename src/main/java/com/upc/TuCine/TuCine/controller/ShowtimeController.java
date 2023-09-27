@@ -47,6 +47,29 @@ public class ShowtimeController {
     //Method: POST
     @Transactional
     @PostMapping("/showtimes")
+<<<<<<< Updated upstream
+=======
+    @Operation(summary = "Crear un nuevo showtime")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Se creó el showtime",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            schema = @Schema(implementation = ShowtimeDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "No se pudo crear el showtime",
+                            content = @Content
+                    )
+            }
+    )
+>>>>>>> Stashed changes
     public ResponseEntity<ShowtimeDto> createShowtime(@RequestBody ShowtimeDto showtimeDto) {
         ShowtimeDto createdShowtimeDto = showtimeService.createShowtime(showtimeDto);
         return new ResponseEntity<>(createdShowtimeDto, HttpStatus.CREATED);
@@ -57,7 +80,12 @@ public class ShowtimeController {
     //Method: UPDATE
     @Transactional
     @PutMapping("/showtimes/{id}")
+<<<<<<< Updated upstream
     public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeDto showtimeDto) {
+=======
+    @Operation(summary = "Actualizar un showtime")
+    public ResponseEntity<ShowtimeDto> updateShowtime(@PathVariable(value = "id") Integer id, @RequestBody ShowtimeDto showtimeDto ) {
+>>>>>>> Stashed changes
         ShowtimeDto updatedShowtimeDto = showtimeService.updateShowtime(id, showtimeDto);
         if (updatedShowtimeDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

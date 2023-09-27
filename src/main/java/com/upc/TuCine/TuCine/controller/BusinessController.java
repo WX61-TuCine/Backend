@@ -56,6 +56,7 @@ public class BusinessController {
         return new ResponseEntity<>(businessTypeDto, HttpStatus.OK);
     }
 
+<<<<<<< Updated upstream
     //Get all Showtimes by Business Id
     //URL: http://localhost:8080/api/TuCine/v1/businesses/{id}/showtimes
     //Method: GET
@@ -68,6 +69,8 @@ public class BusinessController {
         }
         return new ResponseEntity<>(showtimeDtoList, HttpStatus.OK);
     }
+=======
+>>>>>>> Stashed changes
 
     //URL: http://localhost:8080/api/TuCine/v1/businesses
     //Method: POST

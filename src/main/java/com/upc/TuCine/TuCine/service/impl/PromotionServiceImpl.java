@@ -1,9 +1,14 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.PromotionDto;
+<<<<<<< Updated upstream
 import com.upc.TuCine.TuCine.exception.ValidationException;
+=======
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionSaveDto;
+import com.upc.TuCine.TuCine.dto.save.Promotion.PromotionUpdateDto;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+>>>>>>> Stashed changes
 import com.upc.TuCine.TuCine.model.Business;
-import com.upc.TuCine.TuCine.model.Person;
 import com.upc.TuCine.TuCine.model.Promotion;
 import com.upc.TuCine.TuCine.repository.BusinessRepository;
 import com.upc.TuCine.TuCine.repository.PromotionRepository;

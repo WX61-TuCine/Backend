@@ -1,8 +1,13 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.CategoryDto;
+<<<<<<< Updated upstream
 import com.upc.TuCine.TuCine.dto.receive.CategoryReceiveDto;
 import com.upc.TuCine.TuCine.exception.ValidationException;
+=======
+import com.upc.TuCine.TuCine.dto.save.Category.CategorySaveDto;
+import com.upc.TuCine.TuCine.shared.exception.ValidationException;
+>>>>>>> Stashed changes
 import com.upc.TuCine.TuCine.model.Category;
 import com.upc.TuCine.TuCine.repository.CategoryRepository;
 import com.upc.TuCine.TuCine.service.CategoryService;
