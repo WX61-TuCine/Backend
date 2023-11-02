@@ -21,9 +21,12 @@ import org.springframework.context.annotation.Bean;
 						email = "tuCine@gmail.com"),
 				license = @License(
 						name = "Apache 2.0",
-						url = "https://www.apache.org/licenses/LICENSE-2.0.html"
+						url = "http://www.apache.org/licenses/LICENSE-2.0.html"
 				)
-		)
+		),
+		servers = {
+				@Server(url = "https://backend-production-733a.up.railway.app")
+		}
 )
 
 public class TuCineApplication {
