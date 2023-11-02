@@ -8,13 +8,13 @@ public class BusinessSaveDto {
     private String socialReason;
     private String ruc;
     private String phone;
-    private String email;
-    private String imageLogo;
-    private String imageBanner;
+    private String logoSrc;
+    private String bannerSrc;
     private String description;
-    private String dateAttention;
     private String address;
-    private String referenceAddress;
-    private BusinessOwnerSaveDto owner;
+    private String state;
+    private Integer capacity;
+    private String openingHours;
+    private BusinessOwnerSaveDto user;
     private BusinessTypeSaveDto businessType;
 }

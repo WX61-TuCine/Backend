@@ -107,7 +107,7 @@ public class BusinessServiceImpl implements BusinessService {
         }
         businessDto.setId(id);
 
-        businessDto.setUser(userRepository.findById(businessSaveDto.getOwner().getId()).orElse(null));
+        businessDto.setUser(userRepository.findById(businessSaveDto.getUser().getId()).orElse(null));
 
         businessDto.setBusinessType(businessTypeRepository.findById(businessSaveDto.getBusinessType().getId()).orElse(null));
         business = DtoToEntity(businessDto);
