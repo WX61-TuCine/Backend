@@ -14,5 +14,6 @@ public class ActorDto {
     private String lastName;
     private String biography;
     private LocalDate birthday;
+    private String profileSrc;
     private List<Film> films;
 }

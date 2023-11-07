@@ -11,5 +11,6 @@ public class ActorSaveDto {
     private String lastName;
     private String biography;
     private LocalDate birthday;
+    private String profileSrc;
 
 }

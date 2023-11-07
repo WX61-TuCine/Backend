@@ -28,6 +28,8 @@ public class Actor {
     private String biography;
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
+    @Column(name = "profile_src", nullable = false)
+    private String profileSrc;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "actors")
