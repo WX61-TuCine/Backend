@@ -1,6 +1,7 @@
 package com.upc.TuCine.TuCine.service.impl;
 
 import com.upc.TuCine.TuCine.dto.AvailableFilmDto;
+import com.upc.TuCine.TuCine.dto.BusinessDto;
 import com.upc.TuCine.TuCine.model.AvailableFilm;
 import com.upc.TuCine.TuCine.model.Business;
 import com.upc.TuCine.TuCine.model.Film;
@@ -110,6 +111,14 @@ public class AvailableFilmServiceImpl implements AvailableFilmService {
         }
         availableFilmRepository.delete(availableFilmToDelete);
         return EntityToDto(availableFilmToDelete);
+    }
+
+    @Override
+    public List<BusinessDto> getBusinessesByFilmId(Integer filmId) {
+        List<AvailableFilm> availableFilms = availableFilmRepository.findAllByFilmId(filmId);
+        return availableFilms.stream()
+                .map(availableFilm -> modelMapper.map(availableFilm.getBusiness(), BusinessDto.class))
+                .collect(Collectors.toList());
     }
 
     private void validateAvailableFilm(AvailableFilmDto availableFilmDto) {

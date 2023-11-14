@@ -4,6 +4,7 @@ import com.upc.TuCine.TuCine.dto.*;
 
 import com.upc.TuCine.TuCine.dto.save.Film.FilmSaveDto;
 
+import com.upc.TuCine.TuCine.service.AvailableFilmService;
 import com.upc.TuCine.TuCine.service.FilmService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,6 +27,9 @@ public class FilmController {
 
     @Autowired
     private FilmService filmService;
+
+    @Autowired
+    private AvailableFilmService availableFilmService;
 
     public FilmController(FilmService filmService) {
         this.filmService = filmService;
@@ -276,7 +280,16 @@ public class FilmController {
         return ResponseEntity.ok("Category added to film successfully.");
     }
 
-
+    // URL: http://localhost:8080/api/TuCine/v1/films/{filmId}/businesses
+    // Method: GET
+    @GetMapping("/films/{filmId}/businesses")
+    public ResponseEntity<List<BusinessDto>> getBusinessesByFilmId(@PathVariable("filmId") Integer filmId) {
+        List<BusinessDto> businesses = availableFilmService.getBusinessesByFilmId(filmId);
+        if (businesses.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Manejar caso en el que no se encuentren cineclubs
+        }
+        return new ResponseEntity<>(businesses, HttpStatus.OK);
+    }
 
 
 }
