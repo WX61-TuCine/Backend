@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -101,6 +102,21 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         }
         showtimeRepository.delete(showtimeToDelete);
         return EntityToDto(showtimeToDelete);
+    }
+
+    @Override
+    public List<ShowtimeDto> getShowtimesByFilmAndBusiness(Integer filmId, Integer businessId) {
+        // Primero, verifica si existe una relación AvailableFilm para el Film y Business proporcionados
+        AvailableFilm availableFilm = availableFilmRepository.findByFilmIdAndBusinessId(filmId, businessId);
+        if (availableFilm == null) {
+            return Collections.emptyList(); // No se encontró una relación entre Film y Business
+        }
+
+        // Si se encuentra la relación, obtén todos los showtimes asociados a esa AvailableFilm
+        List<Showtime> showtimes = showtimeRepository.findAllByAvailableFilmId(availableFilm.getId());
+        return showtimes.stream()
+                .map(showtime -> modelMapper.map(showtime, ShowtimeDto.class))
+                .collect(Collectors.toList());
     }
 
     private void validateShowtime(ShowtimeDto showtime) {
