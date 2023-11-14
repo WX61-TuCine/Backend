@@ -67,6 +67,7 @@ public class ActorServiceImpl implements ActorService {
         actorUpdate.setLastName(actor.getLastName());
         actorUpdate.setBirthday(actor.getBirthday());
         actorUpdate.setBiography(actor.getBiography());
+        actorUpdate.setProfileSrc(actor.getProfileSrc());
         return EntityToDto(actorRepository.save(actorUpdate));
     }
 
