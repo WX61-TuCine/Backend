@@ -46,6 +46,8 @@ public class UpdateRequest {
     @NotNull
     private LocalDate birthdate;
 
+    private String address;
+
     private String imageSrc;
     private String bankAccount;
 

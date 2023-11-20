@@ -174,6 +174,7 @@ public class UserServiceImpl implements UserService {
             user.get().setDni(request.getDni());
             user.get().setImageSrc(request.getImageSrc());
             user.get().setBankAccount(request.getBankAccount());
+            user.get().setAddress(request.getAddress());
             UserDto resource = enhancedMapper.map(userRepository.save(user.get()), UserDto.class);
             return ResponseEntity.ok(resource);
         } catch (Exception e) {
