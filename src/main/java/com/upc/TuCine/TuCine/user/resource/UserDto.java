@@ -19,7 +19,7 @@ public class UserDto {
     private String password;
     private String imageSrc;
     private String bankAccount;
-
+    private String address;
     private Gender gender;
     private TypeUser typeUser;
 }
