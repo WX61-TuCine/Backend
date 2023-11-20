@@ -47,6 +47,8 @@ public class RegisterRequest {
     @NotNull
     private LocalDate birthdate;
 
+    private String address;
+
     private Set<String> typeUser;
     private Set<String> gender;
 }

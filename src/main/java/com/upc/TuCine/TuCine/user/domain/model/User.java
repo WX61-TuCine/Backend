@@ -48,6 +48,9 @@ public class User {
     @Column(name = "bank_account")
     private String bankAccount;
 
+    @Column(name = "address")
+    private String address;
+
     //Relationships
     @ManyToOne
     @JoinColumn(name = "gender_id", nullable = false)
