@@ -133,7 +133,8 @@ public class UserServiceImpl implements UserService {
                     .withPhone(request.getPhone())
                     .withGender(genders.iterator().next())
                     .withTypeUser(roles.iterator().next())
-                    .withCreatedAt(LocalDate.now());
+                    .withCreatedAt(LocalDate.now())
+                    .withAddress(request.getAddress());
 
             userRepository.save(user);
             UserDto resource = enhancedMapper.map(user, UserDto.class);
